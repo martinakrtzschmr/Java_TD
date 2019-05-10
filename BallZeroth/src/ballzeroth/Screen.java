@@ -4,6 +4,7 @@ import java.awt.*; // Importa todas as classes AWT para o projeto
 import java.awt.image.*; // Importa todas as classes Image para o projeto
 import javax.swing.*; // Importa todas as classes SWING para o projeto
 import java.io.*;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,15 +45,18 @@ public class Screen extends JPanel implements Runnable {
         screenWidth = getWidth(); // function comes from JPanel extension
         screenHeight = getHeight(); // function comes from JPanel extension
         
-        mapConstruct = new MapConstruct();
+        map = new Map();
+        
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        File file = new File(classLoader.getResource(SpriteIDs.mapsDIR).getFile());
         
         for (int i = 0; i < tileset_ground.length; i++) {
             image = new ImageIcon(getClass().getClassLoader().getResource(SpriteIDs.imagesDIR));
             tileset_ground[i] = image.getImage();
             tileset_ground[i] = createImage( new FilteredImageSource(tileset_ground[i].getSource(), new CropImageFilter(0, 64 * i, 64, 64)) );
         }
-        // File aux = getClass().getClassLoader().getResource(SpriteIDs.mapsDIR);
-        // mapConstruct.loadMap(new File());
+        
+        mapConstruct.loadMap(file);
     }
     
     public void run() {
