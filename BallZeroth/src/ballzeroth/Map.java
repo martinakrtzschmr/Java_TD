@@ -3,8 +3,8 @@ package ballzeroth;
 import java.awt.*;
 
 public class Map {
-    public final int worldWidth   = 11; 
-    public final int worldHeight  = 7; 
+    public final int worldWidth   = 12; 
+    public final int worldHeight  = 8; 
     public final int blockSize    = 64; // Pixels de cada quadrado
     
     public Block[][] block;
