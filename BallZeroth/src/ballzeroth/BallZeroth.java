@@ -8,16 +8,20 @@ public class BallZeroth extends JFrame {
     public static Dimension size = new Dimension(800, 600);
     
     public void init () {
+        this.setLayout(new GridLayout(1,1,0,0));
+        Screen screen = new Screen(); // Objeto que extende a classe JPanel
+        this.add(screen);
         
+        this.setVisible(true);
     }
     
+    // Utilize "this." para verificar as funções extendidas pelo JFrame
     public BallZeroth () {
-        setTitle(title);
-        setSize(size);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // setVisible(true);
+        this.setTitle(title);
+        this.setSize(size);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         init();
     }
