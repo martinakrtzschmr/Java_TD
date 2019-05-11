@@ -15,7 +15,7 @@ public class Map {
         
         for (int y = 0; y < block.length; y++) {
             for (int x = 0; x < block[0].length; x++) {
-                block[y][x] = new Block(width + (x * blockSize), y * blockSize, blockSize, blockSize, SpriteIDs.groundID, SpriteIDs.airID);
+                block[y][x] = new Block(width + (x * blockSize), y * blockSize, blockSize, blockSize, SpriteIDs.terrainID);
             }
         }
     }

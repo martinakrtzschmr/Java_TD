@@ -13,8 +13,8 @@ public class Screen extends JPanel implements Runnable {
     
     private boolean running = false;
     
-    public static Image[] tileset_ground = new Image[6];
-    public static Image[] tileset_air = new Image[6];
+    public static Image[] tileset_ground = new Image[100];
+    public static Image[] tileset_air = new Image[100];
     public static Map map;
     public static MapConstruct mapConstruct;
     public static int screenWidth, screenHeight;
@@ -47,16 +47,13 @@ public class Screen extends JPanel implements Runnable {
         
         map = new Map();
         
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        File file = new File(classLoader.getResource(SpriteIDs.mapsDIR).getFile());
-        
         for (int i = 0; i < tileset_ground.length; i++) {
             image = new ImageIcon(getClass().getClassLoader().getResource(SpriteIDs.imagesDIR));
             tileset_ground[i] = image.getImage();
             tileset_ground[i] = createImage( new FilteredImageSource(tileset_ground[i].getSource(), new CropImageFilter(0, 64 * i, 64, 64)) );
         }
         
-        mapConstruct.loadMap(file);
+        // mapConstruct.loadMap(file);
     }
     
     public void run() {

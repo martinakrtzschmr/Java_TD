@@ -7,18 +7,13 @@ public class Block extends Rectangle {
     public int terrainID;
     public int airID;
     
-    public Block (int x, int y, int width, int height, int terrainID, int airID) {
+    public Block (int x, int y, int width, int height, int terrainID) {
         setBounds(x, y, width, height);
         this.terrainID = terrainID;
-        this.airID = airID;
     }
     
     public void draw (Graphics g) {
         g.drawImage(Screen.tileset_ground[terrainID], x, y, width, height, null);
         // g.drawRect(x, y, width, height);
-        
-        if (airID != SpriteIDs.airID) {
-            
-        }
     }
 }
