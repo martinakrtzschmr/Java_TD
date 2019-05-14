@@ -14,6 +14,7 @@ public class MapConstruct {
                 for (int y = 0; y < Screen.map.block.length; y++) {
                     for (int x = 0; x < Screen.map.block[0].length; x++) {
                         Screen.map.block[y][x].terrainID = scan.nextInt();
+                        System.out.println("Number: " + Screen.map.block[y][x].terrainID);
                     }
                 }
             }

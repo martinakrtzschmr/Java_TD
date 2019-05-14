@@ -5,6 +5,7 @@ import java.awt.image.*; // Importa todas as classes Image para o projeto
 import javax.swing.*; // Importa todas as classes SWING para o projeto
 import java.io.*;
 import java.nio.file.Files;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,28 +33,53 @@ public class Screen extends JPanel implements Runnable {
         if(start) {
             try {
                 start();
-            } catch (FileNotFoundException ex) {
+                start = false;
+            } catch (IOException ex) {
                 Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
             }
-            start = false;
         }
         g.clearRect(0, 0, getWidth(), getHeight());
         map.draw(g); // Draw the map and update it
     }
     
-    public void start () throws FileNotFoundException {
+    public void start () throws FileNotFoundException, IOException {
         screenWidth = getWidth(); // function comes from JPanel extension
         screenHeight = getHeight(); // function comes from JPanel extension
         
         map = new Map();
         
         for (int i = 0; i < tileset_ground.length; i++) {
-            image = new ImageIcon(getClass().getClassLoader().getResource(SpriteIDs.imagesDIR));
+            image = new ImageIcon(SpriteIDs.imagesDIR);
+            //image = new ImageIcon(getClass().getClassLoader().getResource(SpriteIDs.imagesDIR));
             tileset_ground[i] = image.getImage();
             tileset_ground[i] = createImage( new FilteredImageSource(tileset_ground[i].getSource(), new CropImageFilter(0, 64 * i, 64, 64)) );
         }
         
-        // mapConstruct.loadMap(file);
+        try {
+            String linha="";
+            int counter = 1;
+            
+            FileReader file = new FileReader(SpriteIDs.mapsDIR);
+            System.out.println("");
+            BufferedReader sc = new BufferedReader(file);
+            
+            while((linha = sc.readLine()) != null){
+                String caracteres[] = linha.split(" ");
+                
+                for (int y = 0; y < counter; y++) {
+                    for (int x = 0; x < caracteres.length; x++) {
+                        map.block[y][x].terrainID = Integer.parseInt(caracteres[x]);
+                        System.out.println("terrain: " + map.block[y][x].terrainID);
+                    }
+                }
+                
+                counter++;
+            }
+
+            sc.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public void run() {
@@ -66,7 +92,6 @@ public class Screen extends JPanel implements Runnable {
     
         while(running) {
             if(!start){
-                
                 
             }
             
