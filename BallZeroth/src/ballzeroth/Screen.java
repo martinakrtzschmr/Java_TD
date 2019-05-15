@@ -47,7 +47,7 @@ public class Screen extends JPanel implements Runnable {
     public void start () throws FileNotFoundException, IOException {
         try {
             String linha="";
-            int counter = 1;
+            int counter = 0;
             
             FileReader file = new FileReader(SpriteIDs.mapsDIR);
             System.out.println("");
@@ -62,10 +62,8 @@ public class Screen extends JPanel implements Runnable {
                 }
                 System.out.println("");
                 
-                for (int y = 0; y < counter; y++) {
-                    for (int x = 0; x < caracteres.length; x++) {
-                        map.block[y][x].terrainID = Integer.parseInt(caracteres[x]);
-                    }
+                for (int x = 0; x < map.worldWidth; x++) {
+                    map.block[counter][x].terrainID = Integer.parseInt(caracteres[x]);
                 }
                 
                 counter++;
