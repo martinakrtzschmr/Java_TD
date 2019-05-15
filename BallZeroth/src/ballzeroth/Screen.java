@@ -8,17 +8,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Screen extends JPanel implements Runnable {
-    public Thread gameLoop = new Thread(this);
-    
+    public static int screenWidth, screenHeight;
     private boolean running = false;
+    public static boolean start = true;
+    
+    public Thread gameLoop = new Thread(this);
     
     public static Image[] tileset_ground = new Image[100];
     public static Image[] tileset_air = new Image[100];
+    
     public static Map map;
     public static MapConstruct mapConstruct;
-    public static int screenWidth, screenHeight;
-    public static boolean start = true;
+    public static Store store;
+    
     private ImageIcon image;
+    
+    public static Point mouse = new Point(0, 0);
     
     public Screen() {
         running = true;
@@ -33,6 +38,8 @@ public class Screen extends JPanel implements Runnable {
                 screenHeight = getHeight(); // function comes from JPanel extension
 
                 map = new Map();
+                store = new Store();
+                
                 start();
                 start = false;
             } catch (IOException ex) {
@@ -42,6 +49,7 @@ public class Screen extends JPanel implements Runnable {
         
         g.clearRect(0, 0, getWidth(), getHeight());
         map.draw(g); // Draw the map and update it
+        store.draw(g); // Draw shop and update it
     }
     
     public void start () throws FileNotFoundException, IOException {
