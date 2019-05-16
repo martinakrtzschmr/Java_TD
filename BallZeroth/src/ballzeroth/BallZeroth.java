@@ -9,7 +9,7 @@ public class BallZeroth extends JFrame {
     
     public void init () {
         this.setLayout(new GridLayout(1,1,0,0));
-        Screen screen = new Screen(); // Objeto que extende a classe JPanel
+        Screen screen = new Screen(this); // Objeto que extende a classe JPanel
         this.add(screen);
         
         this.setVisible(true);

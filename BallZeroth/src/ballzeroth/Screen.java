@@ -15,7 +15,7 @@ public class Screen extends JPanel implements Runnable {
     public Thread gameLoop = new Thread(this);
     
     public static Image[] tileset_ground = new Image[100];
-    public static Image[] tileset_air = new Image[100];
+    public static Image[] tileset_res = new Image[100];
     
     public static Map map;
     public static MapConstruct mapConstruct;
@@ -25,7 +25,10 @@ public class Screen extends JPanel implements Runnable {
     
     public static Point mouse = new Point(0, 0);
     
-    public Screen() {
+    public Screen( Frame frame ) {
+        frame.addMouseListener(new handler());
+        frame.addMouseMotionListener(new handler());
+        
         running = true;
         gameLoop.start();
     }
@@ -47,7 +50,10 @@ public class Screen extends JPanel implements Runnable {
             }
         }
         
-        g.clearRect(0, 0, getWidth(), getHeight());
+        g.setColor(new Color(50, 50, 50));
+        g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(new Color(0, 0, 0));
+        
         map.draw(g); // Draw the map and update it
         store.draw(g); // Draw shop and update it
     }
@@ -64,7 +70,6 @@ public class Screen extends JPanel implements Runnable {
             while((linha = sc.readLine()) != null){
                 String caracteres[] = linha.split(" ");
                 
-                System.out.print("Caracter: ");
                 for (int i = 0; i < caracteres.length; i++) {
                     System.out.print(caracteres[i] + " ");
                 }
@@ -83,6 +88,8 @@ public class Screen extends JPanel implements Runnable {
                 tileset_ground[i] = image.getImage();
                 tileset_ground[i] = createImage( new FilteredImageSource(tileset_ground[i].getSource(), new CropImageFilter(0, 64 * i, 64, 64)) );
             }
+            
+            tileset_res[0] = new ImageIcon(SpriteIDs.buttonDIR).getImage();
 
             sc.close();
         } catch (FileNotFoundException ex) {
