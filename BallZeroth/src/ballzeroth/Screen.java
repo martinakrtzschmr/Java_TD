@@ -19,7 +19,6 @@ public class Screen extends JPanel implements Runnable {
     public static Image[] tileset_enemies = new Image[100];
     
     public static Map map;
-    public static MapConstruct mapConstruct;
     public static Store store;
     
     public static Enemy[] enemies = new Enemy[100];

@@ -1,11 +1,13 @@
 package ballzeroth;
 
+import AEstrela.*;
 import java.awt.*;
 
 public class Map {
     public final int worldWidth;
     public final int worldHeight;
-    public final int blockSize    = 64; // Pixels de cada quadrado
+    public final int blockSize = 64; // Pixels de cada quadrado
+    public static AEstrela estrela = new AEstrela();
     
     public Block[][] block;
     
@@ -23,7 +25,11 @@ public class Map {
         }
     }
     
-    public void physics ()  {
+    public void calculatePath () {
+        
+    }
+    
+    public void physics () {
         
     }
     
@@ -33,5 +39,13 @@ public class Map {
                 block[y][x].draw(g);
             }
         }
+    }
+    
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
     }
 }
