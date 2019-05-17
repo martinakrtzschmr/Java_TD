@@ -35,7 +35,7 @@ public class Store {
             g.drawImage(Screen.tileset_res[0], buttons[i].x, buttons[i].y, buttons[i].width, buttons[i].height, null);
         }
         
-        g.fillRect(health.x, health.y, health.width, health.height);
-        g.fillRect(gold.x, gold.y, gold.width, gold.height);
+        g.drawImage(Screen.tileset_res[1], health.x, health.y, health.width, health.height, null);
+        g.drawImage(Screen.tileset_res[2], gold.x, gold.y, gold.width, gold.height, null);
     }
 }

@@ -3,13 +3,16 @@ package ballzeroth;
 import java.awt.*;
 
 public class Map {
-    public final int worldWidth   = 12; 
-    public final int worldHeight  = 8; 
+    public final int worldWidth;
+    public final int worldHeight;
     public final int blockSize    = 64; // Pixels de cada quadrado
     
     public Block[][] block;
     
-    public Map () {
+    public Map (int worldHeight, int worldWidth) {
+        this.worldHeight = worldHeight;
+        this.worldWidth = worldWidth;
+        
         block = new Block[worldHeight][worldWidth];
         int width = (Screen.screenWidth / 2) - ((worldWidth * blockSize) / 2);
         

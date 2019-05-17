@@ -11,10 +11,10 @@ public class MapConstruct {
             Scanner scan = new Scanner(loadPath);
             
             while(scan.hasNext()){
-                for (int y = 0; y < Screen.map.block.length; y++) {
-                    for (int x = 0; x < Screen.map.block[0].length; x++) {
-                        Screen.map.block[y][x].terrainID = scan.nextInt();
-                        System.out.println("Number: " + Screen.map.block[y][x].terrainID);
+                for (int y = 0; y < Screen.map.world.length; y++) {
+                    for (int x = 0; x < Screen.map.world[0].length; x++) {
+                        Screen.map.world[y][x].terrainID = scan.nextInt();
+                        System.out.println("Number: " + Screen.map.world[y][x].terrainID);
                     }
                 }
             }

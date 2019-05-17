@@ -16,14 +16,19 @@ public class Screen extends JPanel implements Runnable {
     
     public static Image[] tileset_ground = new Image[100];
     public static Image[] tileset_res = new Image[100];
+    public static Image[] tileset_enemies = new Image[100];
     
     public static Map map;
     public static MapConstruct mapConstruct;
     public static Store store;
     
-    private ImageIcon image;
+    public static Enemy[] enemies = new Enemy[100];
     
+    private ImageIcon image;
     public static Point mouse = new Point(0, 0);
+    
+    private int spawnTime = 2400;
+    private int frames = 0;
     
     public Screen( Frame frame ) {
         frame.addMouseListener(new handler());
@@ -40,7 +45,7 @@ public class Screen extends JPanel implements Runnable {
                 screenWidth = getWidth(); // function comes from JPanel extension
                 screenHeight = getHeight(); // function comes from JPanel extension
 
-                map = new Map();
+                map = new Map(8, 12);
                 store = new Store();
                 
                 start();
@@ -55,6 +60,13 @@ public class Screen extends JPanel implements Runnable {
         g.setColor(new Color(0, 0, 0));
         
         map.draw(g); // Draw the map and update it
+        
+        for (int i = 0; i < enemies.length; i++) { // Draw the enemies
+            if ( enemies[i].inGame ) {
+                enemies[i].draw(g);
+            }
+        }
+        
         store.draw(g); // Draw shop and update it
     }
     
@@ -82,6 +94,7 @@ public class Screen extends JPanel implements Runnable {
                 counter++;
             }
             
+            // Render background tiles based on mapOne instructions
             for (int i = 0; i < tileset_ground.length; i++) {
                 image = new ImageIcon(SpriteIDs.imagesDIR);
                 //image = new ImageIcon(getClass().getClassLoader().getResource(SpriteIDs.imagesDIR));
@@ -90,22 +103,48 @@ public class Screen extends JPanel implements Runnable {
             }
             
             tileset_res[0] = new ImageIcon(SpriteIDs.buttonDIR).getImage();
+            tileset_res[1] = new ImageIcon(SpriteIDs.hearthDIR).getImage();
+            tileset_res[2] = new ImageIcon(SpriteIDs.coinDIR).getImage();
+            
+            tileset_enemies[0] = new ImageIcon(SpriteIDs.enemyDIR).getImage();
 
+            for (int i = 0; i < enemies.length; i++) {
+                enemies[i] = new Enemy();
+            }
+            
             sc.close();
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }
     }
     
+    public void enemySpawner () {
+        if ( frames >= spawnTime ) {
+            for (int i = 0; i < enemies.length; i++) {
+                if(!enemies[i].inGame){
+                    enemies[i].spawn(i);
+                    break;
+                }
+            }
+            
+            frames = 0;
+        } else {
+            frames += 1;
+        }
+    }
+    
     public void run() {
-//        long lastTime = System.nanoTime();
-//        double amountOfTicks = 60.0;
-//        double ns = 1000000000 / amountOfTicks;
-//        double delta = 0;
-//        long timer = System.currentTimeMillis();
-//        int frames = 0;
-//    
         while(running) {
+            if (!start) {
+                map.physics();
+                enemySpawner();
+                for (int i = 0; i < enemies.length; i++) {
+                    if (enemies[i].inGame) {
+                        enemies[i].physics();
+                    }
+                }
+            }
+            
             repaint();
             
             try {
