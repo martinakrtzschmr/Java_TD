@@ -13,18 +13,19 @@ import java.util.List;
  * @author martin.akretzschmar
  */
 public class No {
+
     private int id;
     private int x;
     private int y;
     private float h, g, f;
     private boolean bloqueado, visitado;
 
-    public No(int i, int x, int y){
+    public No(int i, int x, int y) {
         this.id = id;
         this.x = x;
         this.y = y;
     }
-    
+
     public boolean isVisitado() {
         return visitado;
     }
@@ -33,7 +34,7 @@ public class No {
         this.visitado = visitado;
     }
     private No pai;
-    public  List<No> vizinhos = new ArrayList();
+    public List<No> vizinhos = new ArrayList();
 
     public List<No> getVizinhos() {
         return vizinhos;
