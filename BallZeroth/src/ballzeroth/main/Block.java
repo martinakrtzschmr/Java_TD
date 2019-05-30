@@ -1,4 +1,4 @@
-package ballzeroth;
+package ballzeroth.main;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;
@@ -15,6 +15,5 @@ public class Block extends Rectangle {
 
     public void draw(Graphics g) {
         g.drawImage(Screen.tileset_ground[terrainID], x, y, width, height, null);
-        // g.drawRect(x, y, width, height);
     }
 }

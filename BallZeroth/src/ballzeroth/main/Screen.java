@@ -1,5 +1,6 @@
-package ballzeroth;
+package ballzeroth.main;
 
+import ballzeroth.astar.Node;
 import java.awt.*; // Importa todas as classes AWT para o projeto
 import java.awt.image.*; // Importa todas as classes Image para o projeto
 import javax.swing.*; // Importa todas as classes SWING para o projeto
@@ -59,7 +60,7 @@ public class Screen extends JPanel implements Runnable {
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(new Color(0, 0, 0));
 
-        map.draw(g); // Draw the map and update it
+        map.drawMap(g); // Draw the map and update it
 
         for (int i = 0; i < enemies.length; i++) { // Draw the enemies
             if (enemies[i].inGame) {
@@ -70,8 +71,40 @@ public class Screen extends JPanel implements Runnable {
         store.draw(g); // Draw shop and update it
     }
 
+    // start é utilizado uma vez ao começar o jogo e 
+    // renderizar cada bloco do spritsheet no mapa
+    
+    
+
+	private ballzeroth.astar.Map map;
+	private Player player;
+	private java.util.List<Node> path;
+
+	int[][] mapMatriz = { //
+			{ 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
+			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
+			{ 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0 }, //
+			{ 0, 0, 1, 0, 1, 0, 1, 4, 4, 1, 1, 1 }, //
+			{ 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0 }, //
+			{ 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0 }, //
+			{ 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0 }, //
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
+                                                             };
+        
+        
+	int[][] m1 = { //
+			{ 0, 0, 0, 0, 0, 0, 0 }, //
+			{ 0, 0, 0, 1, 0, 0, 0 }, //
+			{ 0, 0, 0, 1, 0, 0, 0 }, //
+			{ 0, 0, 0, 1, 0, 0, 0 }, //
+			{ 0, 0, 0, 0, 0, 0, 0 } };
+
+    
+    
+    
     public void start() throws FileNotFoundException, IOException {
         try {
+            map = new Map(mapMatriz);
             String linha = "";
             int counter = 0;
 
