@@ -118,13 +118,13 @@ public class Node extends Rectangle {
 	 */
 	public void setH(Node goal)
 	{
-		h = (Math.abs(getX() - goal.getX()) + Math.abs(getY() - goal.getY())) * MOVEMENT_COST;
+		h = (Math.abs(getXAxis() - goal.getXAxis()) + Math.abs(getYAxis() - goal.getYAxis())) * MOVEMENT_COST;
 	}
 
 	/**
 	 * @return The node's X position on the map.
 	 */
-	public int getX()
+	public int getXAxis()
 	{
 		return x;
 	}
@@ -143,7 +143,7 @@ public class Node extends Rectangle {
 	/**
 	 * @return The node's Y position on the map.
 	 */
-	public int getY()
+	public int getYAxis()
 	{
 		return y;
 	}

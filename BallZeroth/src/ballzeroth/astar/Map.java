@@ -141,13 +141,9 @@ public class Map
 	public Node getNode(int x, int y)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-		{
 			return nodes[x][y];
-		}
 		else
-		{
 			return null;
-		}
 	}
 
 	/**
@@ -186,15 +182,15 @@ public class Map
 		while (true) {
                         // Retorna o Node com o menos valor de F da lista.
 			Node current = lowestFInList(nodesVisitados);
-			// Remove o Node atual da lista de visitados.
+                        // Remove o Node atual da lista de visitados.
 			nodesVisitados.remove(current);
-			// Add current node to closed list.
+                        // Add current node to closed list.
 			nodesDescobertos.add(current);
 
-			// If the current node position is equal to the goal position ...
+			// Se o Node atual for igual ao Node alvo
 			if ((current.getX() == goalX) && (current.getY() == goalY))
 			{
-				// Return a LinkedList containing all of the visited nodes.
+				// Returna uma LinkedList com todos os Nodes visitados.
 				return calcPath(nodes[startX][startY], current);
 			}
 
@@ -236,34 +232,32 @@ public class Map
 
 	/**
 	 * @param start
-	 *            The first node on the path.
+	 * O primeiro Node do caminho.
 	 * @param goal
-	 *            The last node on the path.
-	 * @return a list containing all of the visited nodes, from the goal to the
-	 *         start.
+	 * O último Node do caminho.
+	 * @return uma lista com todos os Nodes visitados, 
+         * do inicio ao fim.
 	 */
 	private List<Node> calcPath(Node start, Node goal)
 	{
 		LinkedList<Node> path = new LinkedList<Node>();
-
 		Node node = goal;
 		boolean done = false;
-		while (!done)
-		{
+                
+		while (!done) {
 			path.addFirst(node);
 			node = node.getParent();
 			if (node.equals(start))
-			{
-				done = true;
-			}
+                            done = true;
 		}
+                
 		return path;
 	}
 
 	/**
 	 * @param list
-	 *            The list to be checked.
-	 * @return The node with the lowest F score in the list.
+	 * A lista a ser verificada.
+	 * @return O Node com o menor F da lista.
 	 */
 	private Node lowestFInList(List<Node> list)
 	{
@@ -289,8 +283,8 @@ public class Map
 	private List<Node> getAdjacent(Node node, List<Node> closedList)
 	{
 		List<Node> adjacentNodes = new LinkedList<Node>();
-		int x = node.getX();
-		int y = node.getY();
+		int x = node.getXAxis();
+		int y = node.getYAxis();
 
 		Node adjacent;
 
