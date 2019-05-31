@@ -1,10 +1,3 @@
-/*
- * Possible optimizations:
- * - calculate f as soon as g or h are set, so it will not have to be
- *      calculated each time it is retrieved
- * - store nodes in openList sorted by their f value.
- */
-
 package ballzeroth.astar;
 
 import ballzeroth.main.Screen;
@@ -14,10 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * This class represents a simple map to be used for A* pathfinding.
- * 
- * @author dopke
- *
+ * A classe retorna um mapa simples, e um possível caminho, utilizando algoritmo A* pathfinding.
  */
 public class Map
 {    
@@ -176,31 +166,30 @@ public class Map
 	 */
 	public final List<Node> findPath(int startX, int startY, int goalX, int goalY)
 	{
-		// If our start position is the same as our goal position ...
+		// Se nossa posição for igual a posição alvo.
 		if (startX == goalX && startY == goalY)
 		{
-			// Return an empty path, because we don't need to move at all.
+			// Retorna um array vazio, pois não precisamos nos mover.
 			return new LinkedList<Node>();
 		}
 
-		// The set of nodes already visited.
-		List<Node> openList = new LinkedList<Node>();
-		// The set of currently discovered nodes still to be visited.
-		List<Node> closedList = new LinkedList<Node>();
+		// Os Nodes já visitados.
+		List<Node> nodesVisitados = new LinkedList<Node>();
+                // Os Nodes já descobertos, que ainda não foram visitados.
+		List<Node> nodesDescobertos = new LinkedList<Node>();
 
-		// Add starting node to open list.
-		openList.add(nodes[startX][startY]);
+		// Adiciona o primeiro Node para a lista.
+		nodesVisitados.add(nodes[startX][startY]);
 
-		// This loop will be broken as soon as the current node position is
-		// equal to the goal position.
-		while (true)
-		{
-			// Gets node with the lowest F score from open list.
-			Node current = lowestFInList(openList);
-			// Remove current node from open list.
-			openList.remove(current);
+		// O loop encerra assim que a posição atual for igual a
+		// posição alvo.
+		while (true) {
+                        // Retorna o Node com o menos valor de F da lista.
+			Node current = lowestFInList(nodesVisitados);
+			// Remove o Node atual da lista de visitados.
+			nodesVisitados.remove(current);
 			// Add current node to closed list.
-			closedList.add(current);
+			nodesDescobertos.add(current);
 
 			// If the current node position is equal to the goal position ...
 			if ((current.getX() == goalX) && (current.getY() == goalY))
@@ -209,11 +198,11 @@ public class Map
 				return calcPath(nodes[startX][startY], current);
 			}
 
-			List<Node> adjacentNodes = getAdjacent(current, closedList);
+			List<Node> adjacentNodes = getAdjacent(current, nodesDescobertos);
 			for (Node adjacent : adjacentNodes)
 			{
 				// If node is not in the open list ...
-				if (!openList.contains(adjacent))
+				if (!nodesVisitados.contains(adjacent))
 				{
 					// Set current node as parent for this node.
 					adjacent.setParent(current);
@@ -222,7 +211,7 @@ public class Map
 					// Set G costs of this node (costs from start to this node).
 					adjacent.setG(current);
 					// Add node to openList.
-					openList.add(adjacent);
+					nodesVisitados.add(adjacent);
 				}
 				// Else if the node is in the open list and the G score from
 				// current node is cheaper than previous costs ...
@@ -236,7 +225,7 @@ public class Map
 			}
 
 			// If no path exists ...
-			if (openList.isEmpty())
+			if (nodesVisitados.isEmpty())
 			{
 				// Return an empty list.
 				return new LinkedList<Node>();
@@ -347,3 +336,11 @@ public class Map
 		return adjacentNodes;
 	}
 }
+
+
+/*
+ * Possible optimizations:
+ * - calculate f as soon as g or h are set, so it will not have to be
+ *      calculated each time it is retrieved
+ * - store nodes in openList sorted by their f value.
+ */

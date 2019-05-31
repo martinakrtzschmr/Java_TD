@@ -59,7 +59,7 @@ public class Screen extends JPanel implements Runnable {
                     screenHeight = getHeight(); // function comes from JPanel extension
 
                     map = new Map(mapMatriz);
-                    path = map.findPath(player.getX(), player.getY(), mx, my);
+                    path = map.findPath(player.getX(), player.getY(), 10, 10); // Atualizar as coordenadas finais
                     
                     store = new Store();
 
@@ -88,11 +88,9 @@ public class Screen extends JPanel implements Runnable {
         // start é utilizado uma vez ao começar o jogo e 
         // renderizar cada bloco do spritsheet no mapa
 
-
-
-            private ballzeroth.astar.Map map;
-            private Player player;
-            private java.util.List<Node> path;
+        private ballzeroth.astar.Map map;
+        private Player player;
+        private java.util.List<Node> path;
 
 
 
