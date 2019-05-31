@@ -21,9 +21,9 @@ public class Enemy extends Rectangle {
     }
 
     public void spawn(int enemyID) {
-        for (int i = 0; i < Screen.map.block.length; i++) {
-            if (Screen.map.block[i][0].terrainID == SpriteIDs.roadID) {
-                setBounds(Screen.map.block[i][0].x, Screen.map.block[i][0].y, enemySize, enemySize);
+        for (int i = 0; i < Screen.map.node.length; i++) {
+            if (Screen.map.node[i][0].terrainID == SpriteIDs.roadID) {
+                setBounds(Screen.map.node[i][0].x, Screen.map.node[i][0].y, enemySize, enemySize);
                 xPos = 0;
                 yPos = y;
             }

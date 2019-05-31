@@ -1,5 +1,6 @@
 package ballzeroth.main;
 
+import ballzeroth.astar.Map;
 import ballzeroth.astar.Node;
 import java.awt.*; // Importa todas as classes AWT para o projeto
 import java.awt.image.*; // Importa todas as classes Image para o projeto
@@ -10,181 +11,184 @@ import java.util.logging.Logger;
 
 public class Screen extends JPanel implements Runnable {
 
-    public static int screenWidth, screenHeight;
-    private boolean running = false;
-    public static boolean start = true;
+        public static int screenWidth, screenHeight;
+        private boolean running = false;
+        public static boolean start = true;
 
-    public Thread gameLoop = new Thread(this);
+        public Thread gameLoop = new Thread(this);
 
-    public static Image[] tileset_ground = new Image[100];
-    public static Image[] tileset_res = new Image[100];
-    public static Image[] tileset_enemies = new Image[100];
+        public static Image[] tileset_ground = new Image[100];
+        public static Image[] tileset_res = new Image[100];
+        public static Image[] tileset_enemies = new Image[100];
 
-    public static Map map;
-    public static Store store;
+        public static Map map;
+        public static Store store;
 
-    public static Enemy[] enemies = new Enemy[100];
+        public static Enemy[] enemies = new Enemy[100];
 
-    private ImageIcon image;
-    public static Point mouse = new Point(0, 0);
+        private ImageIcon image;
+        public static Point mouse = new Point(0, 0);
 
-    private int spawnTime = 2400;
-    private int frames = 0;
+        private int spawnTime = 2400;
+        private int frames = 0;
+        
+        int[][] mapMatriz = { //
+                { 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
+                { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
+                { 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0 }, //
+                { 0, 0, 1, 0, 1, 0, 1, 4, 4, 1, 1, 1 }, //
+                { 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0 }, //
+                { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0 }, //
+                { 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0 }, //
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
+                                                     };
 
-    public Screen(Frame frame) {
-        frame.addMouseListener(new handler());
-        frame.addMouseMotionListener(new handler());
+        public Screen(Frame frame) {
+            frame.addMouseListener(new handler());
+            frame.addMouseMotionListener(new handler());
 
-        running = true;
-        gameLoop.start();
-    }
+            running = true;
+            gameLoop.start();
+        }
 
-    // Paint and repaint the screen
-    public void paintComponent(Graphics g) {
-        if (start) {
+        // Paint and repaint the screen
+        public void paintComponent(Graphics g) {
+            if (start) {
+                try {
+                    screenWidth = getWidth(); // function comes from JPanel extension
+                    screenHeight = getHeight(); // function comes from JPanel extension
+
+                    map = new Map(mapMatriz);
+                    path = map.findPath(player.getX(), player.getY(), mx, my);
+                    
+                    store = new Store();
+
+                    start();
+                    start = false;
+                } catch (IOException ex) {
+                    Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            g.setColor(new Color(50, 50, 50));
+            g.fillRect(0, 0, getWidth(), getHeight());
+            g.setColor(new Color(0, 0, 0));
+
+            map.drawMap(g, path); // Draw the map and update it
+
+            for (int i = 0; i < enemies.length; i++) { // Draw the enemies
+                if (enemies[i].inGame) {
+                    enemies[i].draw(g);
+                }
+            }
+
+            store.draw(g); // Draw shop and update it
+        }
+
+        // start é utilizado uma vez ao começar o jogo e 
+        // renderizar cada bloco do spritsheet no mapa
+
+
+
+            private ballzeroth.astar.Map map;
+            private Player player;
+            private java.util.List<Node> path;
+
+
+
+
+            int[][] m1 = { //
+                            { 0, 0, 0, 0, 0, 0, 0 }, //
+                            { 0, 0, 0, 1, 0, 0, 0 }, //
+                            { 0, 0, 0, 1, 0, 0, 0 }, //
+                            { 0, 0, 0, 1, 0, 0, 0 }, //
+                            { 0, 0, 0, 0, 0, 0, 0 } };
+
+
+
+
+        public void start() throws FileNotFoundException, IOException {
             try {
-                screenWidth = getWidth(); // function comes from JPanel extension
-                screenHeight = getHeight(); // function comes from JPanel extension
+                String linha = "";
+                int counter = 0;
 
-                map = new Map(8, 12);
-                store = new Store();
-
-                start();
-                start = false;
-            } catch (IOException ex) {
-                Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        g.setColor(new Color(50, 50, 50));
-        g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(new Color(0, 0, 0));
-
-        map.drawMap(g); // Draw the map and update it
-
-        for (int i = 0; i < enemies.length; i++) { // Draw the enemies
-            if (enemies[i].inGame) {
-                enemies[i].draw(g);
-            }
-        }
-
-        store.draw(g); // Draw shop and update it
-    }
-
-    // start é utilizado uma vez ao começar o jogo e 
-    // renderizar cada bloco do spritsheet no mapa
-    
-    
-
-	private ballzeroth.astar.Map map;
-	private Player player;
-	private java.util.List<Node> path;
-
-	int[][] mapMatriz = { //
-			{ 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-			{ 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0 }, //
-			{ 0, 0, 1, 0, 1, 0, 1, 4, 4, 1, 1, 1 }, //
-			{ 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0 }, //
-			{ 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0 }, //
-			{ 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0 }, //
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-                                                             };
-        
-        
-	int[][] m1 = { //
-			{ 0, 0, 0, 0, 0, 0, 0 }, //
-			{ 0, 0, 0, 1, 0, 0, 0 }, //
-			{ 0, 0, 0, 1, 0, 0, 0 }, //
-			{ 0, 0, 0, 1, 0, 0, 0 }, //
-			{ 0, 0, 0, 0, 0, 0, 0 } };
-
-    
-    
-    
-    public void start() throws FileNotFoundException, IOException {
-        try {
-            map = new Map(mapMatriz);
-            String linha = "";
-            int counter = 0;
-
-            FileReader file = new FileReader(SpriteIDs.mapsDIR);
-            System.out.println("");
-            BufferedReader sc = new BufferedReader(file);
-
-            while ((linha = sc.readLine()) != null) {
-                String caracteres[] = linha.split(" ");
-
-                for (int i = 0; i < caracteres.length; i++) {
-                    System.out.print(caracteres[i] + " ");
-                }
+                FileReader file = new FileReader(SpriteIDs.mapsDIR);
                 System.out.println("");
+                BufferedReader sc = new BufferedReader(file);
 
-                for (int x = 0; x < map.worldWidth; x++) {
-                    map.block[counter][x].terrainID = Integer.parseInt(caracteres[x]);
+                while ((linha = sc.readLine()) != null) {
+                    String caracteres[] = linha.split(" ");
+
+                    for (int i = 0; i < caracteres.length; i++) {
+                        System.out.print(caracteres[i] + " ");
+                    }
+                    System.out.println("");
+
+                    for (int x = 0; x < map.worldWidth; x++) {
+                        map.nodes[counter][x].terrainID = Integer.parseInt(caracteres[x]);
+                    }
+
+                    counter++;
                 }
 
-                counter++;
-            }
-
-            // Render background tiles based on mapOne instructions
-            for (int i = 0; i < tileset_ground.length; i++) {
-                image = new ImageIcon(SpriteIDs.imagesDIR);
-                //image = new ImageIcon(getClass().getClassLoader().getResource(SpriteIDs.imagesDIR));
-                tileset_ground[i] = image.getImage();
-                tileset_ground[i] = createImage(new FilteredImageSource(tileset_ground[i].getSource(), new CropImageFilter(0, 64 * i, 64, 64)));
-            }
-
-            tileset_res[0] = new ImageIcon(SpriteIDs.buttonDIR).getImage();
-            tileset_res[1] = new ImageIcon(SpriteIDs.hearthDIR).getImage();
-            tileset_res[2] = new ImageIcon(SpriteIDs.coinDIR).getImage();
-
-            tileset_enemies[0] = new ImageIcon(SpriteIDs.enemyDIR).getImage();
-
-            for (int i = 0; i < enemies.length; i++) {
-                enemies[i] = new Enemy();
-            }
-
-            sc.close();
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void enemySpawner() {
-        if (frames >= spawnTime) {
-            for (int i = 0; i < enemies.length; i++) {
-                if (!enemies[i].inGame) {
-                    enemies[i].spawn(i);
-                    break;
+                // Render background tiles based on mapOne instructions
+                for (int i = 0; i < tileset_ground.length; i++) {
+                    image = new ImageIcon(SpriteIDs.imagesDIR);
+                    //image = new ImageIcon(getClass().getClassLoader().getResource(SpriteIDs.imagesDIR));
+                    tileset_ground[i] = image.getImage();
+                    tileset_ground[i] = createImage(new FilteredImageSource(tileset_ground[i].getSource(), new CropImageFilter(0, 64 * i, 64, 64)));
                 }
-            }
 
-            frames = 0;
-        } else {
-            frames += 1;
-        }
-    }
+                tileset_res[0] = new ImageIcon(SpriteIDs.buttonDIR).getImage();
+                tileset_res[1] = new ImageIcon(SpriteIDs.hearthDIR).getImage();
+                tileset_res[2] = new ImageIcon(SpriteIDs.coinDIR).getImage();
 
-    public void run() {
-        while (running) {
-            if (!start) {
-                map.physics();
-                enemySpawner();
+                tileset_enemies[0] = new ImageIcon(SpriteIDs.enemyDIR).getImage();
+
                 for (int i = 0; i < enemies.length; i++) {
-                    if (enemies[i].inGame) {
-                        enemies[i].physics();
+                    enemies[i] = new Enemy();
+                }
+
+                sc.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        public void enemySpawner() {
+            if (frames >= spawnTime) {
+                for (int i = 0; i < enemies.length; i++) {
+                    if (!enemies[i].inGame) {
+                        enemies[i].spawn(i);
+                        break;
                     }
                 }
-            }
 
-            repaint();
-
-            try {
-                Thread.sleep(1); // Wait for a second?
-            } catch (Exception e) {
-
+                frames = 0;
+            } else {
+                frames += 1;
             }
         }
-    }
+
+        public void run() {
+                while (running) {
+                    if (!start) {
+                        map.physics();
+                        enemySpawner();
+                        for (int i = 0; i < enemies.length; i++) {
+                            if (enemies[i].inGame) {
+                                enemies[i].physics();
+                            }
+                        }
+                    }
+
+                    repaint();
+
+                    try {
+                        Thread.sleep(1); // Wait for a second?
+                    } catch (Exception e) {
+
+                    }
+                }
+        }
 }

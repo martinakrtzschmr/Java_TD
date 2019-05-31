@@ -22,13 +22,13 @@ public class Store {
     public Store() {
         for (int i = 0; i < buttons.length; i++) {
             rectWidth = (Screen.screenWidth / 2) - (shopItens * (buttonSize + 3) / 2);
-            rectHeight = Screen.map.block[Screen.map.worldHeight - 1][0].y;
+            rectHeight = Screen.map.node[Screen.map.worldHeight - 1][0].y;
 
             buttons[i] = new Rectangle(rectWidth + ((buttonSize + 3) * i), rectHeight + storePush, buttonSize, buttonSize);
         }
 
-        health = new Rectangle(Screen.map.block[0][0].x, buttons[0].y, HUDIconSize, HUDIconSize);
-        gold = new Rectangle(Screen.map.block[0][0].x, buttons[0].y + buttons[0].height - HUDIconSize, HUDIconSize, HUDIconSize);
+        health = new Rectangle(Screen.map.node[0][0].x, buttons[0].y, HUDIconSize, HUDIconSize);
+        gold = new Rectangle(Screen.map.node[0][0].x, buttons[0].y + buttons[0].height - HUDIconSize, HUDIconSize, HUDIconSize);
     }
 
     public void draw(Graphics g) {

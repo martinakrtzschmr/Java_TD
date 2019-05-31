@@ -7,6 +7,7 @@
 
 package ballzeroth.astar;
 
+import ballzeroth.main.Screen;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
@@ -19,41 +20,54 @@ import java.util.List;
  *
  */
 public class Map
-{
-
+{    
 	/**
-	 * The width of the map, in columns.
+	 * O tamanho de cada quadrado utilizado na rendereização
+	 */
+        public final int blockSize = 64; // Pixels de cada quadrado
+    
+	/**
+	 * A largura do mapa, em colunas.
 	 */
 	private int width;
 
 	/**
-	 * The height of the map, in rows.
+	 * A altura do mapa, em linhas.
 	 */
 	private int height;
 
 	/**
-	 * Array full of nodes to be used for the pathfinding.
+	 * Matriz de No utilizada para o algoritmo de Pathfinding.
 	 */
 	private Node[][] nodes;
 
 	/**
-	 * Creates a map based on a two dimensional array, where each zero is a
-	 * walkable node and any other number is not.
+         * Cria um mapa baseado em uma matriz recebida da Classe PAI.
+         * Cada No com valor de 0 é transponível, todos os outros números,
+         * são intrasponíveis.
 	 * 
 	 * @param map
-	 *            The map array used to creating the map.
+	 * A matriz utilizada para criar o mapa.
+         * 
 	 */
 	public Map(int[][] map)
-	{
+	{                
 		this.width = map[0].length;
 		this.height = map.length;
-		nodes = new Node[width][height];
+                
+		nodes = new Node[height][width];
+                
+                int width = (Screen.screenWidth / 2) - ((this.width * blockSize) / 2);
 
 		for (int x = 0; x < width; x++)
 		{
 			for (int y = 0; y < height; y++)
 			{
-				nodes[x][y] = new Node(x, y, map[y][x] == 0);
+				nodes[x][y] = new Node(width + (x * blockSize), // Largura do tile
+                                                       y * blockSize, // Altura do tile
+                                                       blockSize, // Tamanho do bloco a ser renderizado
+                                                       0, // Id para a imagem a ser renderizada
+                                                       map[y][x] == 0); // Define se é andável
 			}
 		}
 	}
@@ -76,7 +90,7 @@ public class Map
 			for (int x = 0; x < width; x++)
 			{
 				if (!nodes[x][y].isWalkable())
-				{
+{
 					g.setColor(Color.WHITE);
 				}
 				else if (path != null && path.contains(new Node(x, y, true)))
@@ -158,7 +172,7 @@ public class Map
 	 * @param goalY
 	 *            The Y coordinate of the goal position.
 	 * @return A list containing all of the visited nodes if there is a
-	 *         solution, an empty list otherwise.
+	 *         solution, an empty list ot*herwise.
 	 */
 	public final List<Node> findPath(int startX, int startY, int goalX, int goalY)
 	{
@@ -332,5 +346,4 @@ public class Map
 		}
 		return adjacentNodes;
 	}
-
 }

@@ -1,13 +1,19 @@
 package ballzeroth.astar;
 
-/**
- * This class represents a simple node to be used for A* pathfinding.
- * 
- * @author Tiago "neteune" Dopke
- */
-public class Node
-{
+import ballzeroth.main.*;
+import java.awt.Rectangle;
+import java.awt.Graphics;
 
+public class Node extends Rectangle {
+
+    /**
+	 * id do terreno ao ser renderizado
+         *      0 == grama
+         *      1 == pedra
+         * 
+	 */
+        public int terrainID;
+    
 	/**
 	 * How much it costs to move orthogonally from one node to another.
 	 */
@@ -54,13 +60,16 @@ public class Node
 	 * @param walkable
 	 *            If the node is not a wall and can be walked through.
 	 */
-	public Node(int x, int y, boolean walkable)
+	public Node(int x, int y, int size, int terrainID, boolean walkable)
 	{
 		this.x = x;
 		this.y = y;
 		this.walkable = walkable;
-	}
-
+                
+                setBounds(x, y, size, size);
+                this.terrainID = terrainID;
+        }
+        
 	/**
 	 * Sets the G score based on the parent's G score and the movement cost.
 	 * 
@@ -82,6 +91,23 @@ public class Node
 	public int calculateG(Node parent)
 	{
 		return (parent.getG() + MOVEMENT_COST);
+	}
+        
+        /**
+	 * @return The cost of getting from the first node to this node.
+	 */
+	public int getG()
+	{
+		return g;
+	}
+
+	/**
+	 * @return A heuristic that estimates the cost of the cheapest path from
+	 *         this node to the goal.
+	 */
+	public int getH()
+	{
+		return h;
 	}
 
 	/**
@@ -109,7 +135,7 @@ public class Node
 	 * @param x
 	 *            The X position to be set.
 	 */
-	public void setX(int x)
+	public void setCoordX(int x)
 	{
 		this.x = x;
 	}
@@ -180,23 +206,6 @@ public class Node
 		return g + h;
 	}
 
-	/**
-	 * @return The cost of getting from the first node to this node.
-	 */
-	public int getG()
-	{
-		return g;
-	}
-
-	/**
-	 * @return A heuristic that estimates the cost of the cheapest path from
-	 *         this node to the goal.
-	 */
-	public int getH()
-	{
-		return h;
-	}
-
 	@Override
 	public boolean equals(Object o)
 	{
@@ -212,5 +221,8 @@ public class Node
 			return true;
 		return false;
 	}
-
+        
+        public void draw(Graphics g) {
+                g.drawImage(Screen.tileset_ground[terrainID], x, y, width, height, null);
+        }
 }
