@@ -1,4 +1,4 @@
-package ballzeroth;
+package ballzeroth.main;
 
 import java.awt.*;
 import java.net.*;

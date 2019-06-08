@@ -1,6 +1,6 @@
-package ballzeroth;
+package ballzeroth.main;
 
-import AEstrela.*;
+import ballzeroth.AEstrela.AEstrela;
 import java.awt.*;
 
 public class Map {
