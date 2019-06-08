@@ -1,4 +1,4 @@
-package ballzeroth;
+package ballzeroth.main;
 
 import java.awt.*; // Importa todas as classes AWT para o projeto
 import java.awt.image.*; // Importa todas as classes Image para o projeto

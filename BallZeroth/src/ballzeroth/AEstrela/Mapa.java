@@ -1,4 +1,4 @@
-package AEstrela;
+package ballzeroth.AEstrela;
 
 import java.util.ArrayList;
 import java.util.List;

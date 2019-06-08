@@ -1,4 +1,4 @@
-package ballzeroth;
+package ballzeroth.main;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;

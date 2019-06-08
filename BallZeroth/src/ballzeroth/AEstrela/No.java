@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AEstrela;
+package ballzeroth.AEstrela;
+package ballzeroth.AEstrela;
 
+import ballzeroth.main.Screen;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
