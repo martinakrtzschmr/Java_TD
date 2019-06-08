@@ -6,16 +6,19 @@ package ballzeroth.main;
  */
 public class SpriteIDs {
 
-    public static String imagesDIR = ".\\src\\resources\\Scenery_Ballzeroth.png";
-    public static String mapsDIR = ".\\src\\resources\\mapOne.txt";
+    //Building the map
+    public static String imagesDIR = ".\\src\\ballzeroth\\resources\\Scenery_Ballzeroth.png";
+    public static String mapsDIR = ".\\src\\ballzeroth\\resources\\mapOne.txt";
 
-    public static String buttonDIR = ".\\src\\resources\\button_dir.png";
-    public static String hearthDIR = ".\\src\\resources\\hearth_dir.png";
-    public static String coinDIR = ".\\src\\resources\\hearth_dir.png";
+    //Building the HUD
+    public static String buttonDIR = ".\\src\\ballzeroth\\resources\\button_dir.png";
+    public static String hearthDIR = ".\\src\\ballzeroth\\resources\\Heart.png";
+    public static String coinDIR = ".\\src\\ballzeroth\\resources\\Coin.png";
 
-    public static String enemyDIR = ".\\src\\resources\\Orc.png";
+    //Building Enemies
+    public static String enemyDIR = ".\\src\\ballzeroth\\resources\\Orc.png";
 
-    public static String mainMusic = ".\\src\\resources\\Main Title _ Legends of Azeroth - World of Warcraft [music].wav";
+    public static String mainMusic = ".\\src\\ballzeroth\\resources\\Main Title _ Legends of Azeroth - World of Warcraft [music].wav";
 
     public static int terrainID = 0;
     public static int roadID = 1;
