@@ -16,12 +16,12 @@ public class SpriteIDs {
     public static String coinDIR = ".\\src\\ballzeroth\\resources\\Coin.png";
 
     //Building Enemies
-    public static String enemyDIR = ".\\src\\ballzeroth\\resources\\Orc.png";
+    public static String enemyDIR = ".\\src\\ballzeroth\\resources\\Orc_Bot.png";
 
-    public static String mainMusic = ".\\src\\ballzeroth\\resources\\Main Title _ Legends of Azeroth - World of Warcraft [music].wav";
+    public static String mainMusic = ".\\src\\ballzeroth\\resources\\Main Title_Legends of Azeroth - World of Warcraft [music].wav";
 
-    public static int terrainID = 0;
-    public static int roadID = 1;
+    public static int terrainID = 1;
+    public static int roadID = 0;
 
     public static int enemyOrcID = 0;
     public static int enemyHumanID = 1;
