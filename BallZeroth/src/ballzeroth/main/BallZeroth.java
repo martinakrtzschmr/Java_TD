@@ -16,8 +16,9 @@ public class BallZeroth extends JFrame {
     public static String title = "BallZeroth!";
     public static Dimension size = new Dimension(800, 600);
 
+    public ArrayList<Sounds> songs = loadSongs();
     public ArrayList<Sounds> sounds = loadSounds();
-
+    
     public void init() {
         this.setLayout(new GridLayout(1, 1, 0, 0));
         Screen screen = new Screen(this); // Objeto que extende a classe JPanel
@@ -26,16 +27,25 @@ public class BallZeroth extends JFrame {
         this.setVisible(true);
     }
 
-    public static ArrayList<Sounds> loadSounds() throws MalformedURLException {
-        ArrayList<Sounds> sounds = new ArrayList(); //exemplo para teste
-        sounds.add(new Sounds(SpriteIDs.mainMusic));
+    public static ArrayList<Sounds> loadSongs() throws MalformedURLException {
+        ArrayList<Sounds> songs = new ArrayList(); //exemplo para teste
+        songs.add(new Sounds(SpriteIDs.mainMusic));
+        return songs;
+    }
+    
+    public static ArrayList<Sounds> loadSounds() throws  MalformedURLException{
+        ArrayList <Sounds> sounds = new ArrayList();
+        sounds.add(new Sounds(SpriteIDs.nature));
+        sounds.add(new Sounds(SpriteIDs.wave));
         return sounds;
     }
+    
 
     // Utilize "this." para verificar as funções extendidas pelo JFrame
     public BallZeroth() throws MalformedURLException {
 
-        sounds.get(0).playSongs();
+        songs.get(0).playSongs();
+        
 
         this.setTitle(title);
         this.setSize(size);

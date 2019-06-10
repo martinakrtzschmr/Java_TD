@@ -18,8 +18,13 @@ public class SpriteIDs {
     //Building Enemies
     public static String enemyDIR = ".\\src\\ballzeroth\\resources\\Orc_Bot.png";
 
-    public static String mainMusic = ".\\src\\ballzeroth\\resources\\Main Title_Legends of Azeroth - World of Warcraft [music].wav";
-
+    //sounds and songs
+    public static String mainMusic = ".\\src\\ballzeroth\\resources\\battlesong.wav";
+    public static String nature = ".\\src\\ballzeroth\\resources\\naturesound.wav";
+    public static String wave = ".\\src\\ballzeroth\\resources\\tambosound.wav";
+    
+    
+    
     public static int terrainID = 1;
     public static int roadID = 0;
 
