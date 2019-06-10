@@ -14,7 +14,7 @@ FELIPE ANDREY
 public class BallZeroth extends JFrame {
 
     public static String title = "BallZeroth!";
-    public static Dimension size = new Dimension(800, 600);
+    public static Dimension size = new Dimension(900, 650);
 
     public ArrayList<Sounds> sounds = loadSounds();
 

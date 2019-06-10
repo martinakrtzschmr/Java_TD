@@ -17,7 +17,10 @@ public class Enemy extends Rectangle {
     public boolean inGame = false;
 
     public Enemy() {
-
+        
+        //if (this.xPos == map.objective.x && this.yPos == map.objective.y) {;
+        //    Screen.setHealth(Screen.getHealth() - 1);
+        //}
     }
 
     public void spawn(int enemyID) {

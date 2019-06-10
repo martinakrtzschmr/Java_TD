@@ -27,3 +27,5 @@ BallZeroth/build/classes/AEstrela/AEstrela.class
 *.class
 *.class
 *.class
+*.class
+*.properties

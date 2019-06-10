@@ -22,13 +22,15 @@ public class Screen extends JPanel implements Runnable {
     public static Map map;
     public static Store store;
 
-    public static Enemy[] enemies = new Enemy[100];
-
     private ImageIcon image;
     public static Point mouse = new Point(0, 0);
 
+    public static Enemy[] enemies = new Enemy[100];
     private int spawnTime = 2400;
     private int frames = 0;
+    
+    private int health = 6;
+    private int coins = 10;
 
     public Screen(Frame frame) {
         frame.addMouseListener(new handler());
@@ -153,5 +155,21 @@ public class Screen extends JPanel implements Runnable {
 
             }
         }
+    }
+    
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 }
