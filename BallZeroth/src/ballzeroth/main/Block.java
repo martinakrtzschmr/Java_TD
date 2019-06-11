@@ -2,7 +2,6 @@ package ballzeroth.main;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;
-import java.awt.*;
 
 public class Block extends Rectangle {
 
@@ -18,10 +17,8 @@ public class Block extends Rectangle {
     public void draw(Graphics g) {
         g.drawImage(Screen.tileset_ground[terrainID], x, y, width, height, null);
         // g.drawRect(x, y, width, height);
-        if(airID != Value.airAir){
-            g.drawImage(Screen.tileset_air[airID], x, y, width, height, null);
-        }
-            
-            
+        //if(airID != Value.airAir){
+        //    g.drawImage(Screen.tileset_air[airID], x, y, width, height, null);
+        //}
     }
 }
