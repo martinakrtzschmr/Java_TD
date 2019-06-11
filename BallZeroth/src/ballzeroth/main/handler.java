@@ -10,30 +10,28 @@ import java.awt.event.*;
 public class handler implements MouseMotionListener, MouseListener {
 
     public void mouseDragged(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Screen.mouse = new Point(((e.getX()) + ((BallZeroth.size.width) - Screen.screenWidth) / 2), ((e.getY()) + ((BallZeroth.size.height - (Screen.screenHeight)) - (BallZeroth.size.width - Screen.screenWidth) / 2)));
     }
 
     public void mouseMoved(MouseEvent e) {
-        Screen.mouse = new Point(e.getX(), e.getY());
+        Screen.mouse = new Point(((e.getX()) + ((BallZeroth.size.width) - Screen.screenWidth) / 2), ((e.getY()) + ((BallZeroth.size.height - (Screen.screenHeight)) - (BallZeroth.size.width - Screen.screenWidth) / 2)));
     }
 
     public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Screen.store.click(e.getButton());
     }
 
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 }

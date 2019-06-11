@@ -25,5 +25,6 @@ public class Sounds extends JApplet {
     public void playSongs() {
         audio.loop();
     }
+    
 
 }

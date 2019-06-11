@@ -21,7 +21,8 @@ public class SpriteIDs {
     //sounds and songs
     public static String mainMusic = ".\\src\\ballzeroth\\resources\\battlesong.wav";
     public static String nature = ".\\src\\ballzeroth\\resources\\naturesound.wav";
-    public static String wave = ".\\src\\ballzeroth\\resources\\tambosound.wav";
+    public static String wave = ".\\src\\ballzeroth\\resources\\tamborsound.wav";
+    public static String zugzug = ".\\src\\ballzeroth\\resources\\zugzug.wav";
     
     
     

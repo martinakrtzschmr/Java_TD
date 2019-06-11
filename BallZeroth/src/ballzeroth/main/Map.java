@@ -2,6 +2,7 @@ package ballzeroth.main;
 
 import ballzeroth.AEstrela.AEstrela;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Map {
 
@@ -10,9 +11,12 @@ public class Map {
     public final int blockSize = 64; // Pixels de cada quadrado
     public static AEstrela estrela = new AEstrela();
 
+    private ArrayList<Sounds> sounds;
+
     public Block[][] block;
 
-    public Map(int worldHeight, int worldWidth) {
+    public Map(int worldHeight, int worldWidth, ArrayList<Sounds> sounds) {
+        this.sounds = sounds;
         this.worldHeight = worldHeight;
         this.worldWidth = worldWidth;
 
@@ -21,7 +25,7 @@ public class Map {
 
         for (int y = 0; y < block.length; y++) {
             for (int x = 0; x < block[0].length; x++) {
-                block[y][x] = new Block(width + (x * blockSize), y * blockSize, blockSize, blockSize, SpriteIDs.roadID);
+                block[y][x] = new Block(width + (x * blockSize), y * blockSize, blockSize, blockSize, SpriteIDs.roadID, 1);
             }
         }
     }

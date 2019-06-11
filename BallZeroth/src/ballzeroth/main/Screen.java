@@ -4,6 +4,7 @@ import java.awt.*; // Importa todas as classes AWT para o projeto
 import java.awt.image.*; // Importa todas as classes Image para o projeto
 import javax.swing.*; // Importa todas as classes SWING para o projeto
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,11 +19,12 @@ public class Screen extends JPanel implements Runnable {
     public static Image[] tileset_ground = new Image[100];
     public static Image[] tileset_res = new Image[100];
     public static Image[] tileset_enemies = new Image[100];
+    public static Image[] tileset_air = new Image[100];
 
     public static Map map;
     public static Store store;
 
-    public static Enemy[] enemies = new Enemy[100];
+    public static Enemy[] enemies = new Enemy[6];
 
     private ImageIcon image;
     public static Point mouse = new Point(0, 0);
@@ -30,7 +32,12 @@ public class Screen extends JPanel implements Runnable {
     private int spawnTime = 2400;
     private int frames = 0;
 
-    public Screen(Frame frame) {
+    private ArrayList<Sounds> sounds;
+
+    public Screen(Frame frame, ArrayList<Sounds> sounds) {
+        this.sounds = sounds;
+
+        this.sounds.get(0).playSongs();
         frame.addMouseListener(new handler());
         frame.addMouseMotionListener(new handler());
 
@@ -45,7 +52,7 @@ public class Screen extends JPanel implements Runnable {
                 screenWidth = getWidth(); // function comes from JPanel extension
                 screenHeight = getHeight(); // function comes from JPanel extension
 
-                map = new Map(8, 12);
+                map = new Map(8, 12, sounds);
                 store = new Store();
 
                 start();
@@ -119,6 +126,7 @@ public class Screen extends JPanel implements Runnable {
     }
 
     public void enemySpawner() {
+
         if (frames >= spawnTime) {
             for (int i = 0; i < enemies.length; i++) {
                 if (!enemies[i].inGame) {
@@ -126,6 +134,7 @@ public class Screen extends JPanel implements Runnable {
                     break;
                 }
             }
+            this.sounds.get(3).onceTime();
 
             frames = 0;
         } else {
@@ -135,9 +144,12 @@ public class Screen extends JPanel implements Runnable {
 
     public void run() {
         while (running) {
+
             if (!start) {
+
                 map.physics();
                 enemySpawner();
+
                 for (int i = 0; i < enemies.length; i++) {
                     if (enemies[i].inGame) {
                         enemies[i].physics();
