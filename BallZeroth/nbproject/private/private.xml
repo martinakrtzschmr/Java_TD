@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Java_TD/BallZeroth/src/ballzeroth/Screen.java</file>
-            <file>file:/E:/Java_TD/BallZeroth/src/ballzeroth/Enemy.java</file>
-            <file>file:/E:/Java_TD/BallZeroth/src/ballzeroth/Sounds.java</file>
-            <file>file:/E:/Java_TD/BallZeroth/src/ballzeroth/BallZeroth.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/Enemy.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/handler.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/Map.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/Store.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/Block.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/Screen.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/Sounds.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/BallZeroth.java</file>
+            <file>file:/C:/Users/vykto/Documents/GitHub/Java_TD/BallZeroth/src/ballzeroth/main/SpriteIDs.java</file>
         </group>
     </open-files>
 </project-private>

@@ -8,12 +8,13 @@ import java.awt.*;
  */
 public class Store {
 
-    public static int shopItens = 8;
+    public static int shopItens = 6;
     public static int buttonSize = 52;
     private int storePush = 70;
     private int HUDIconSize = 20;
     private int rectWidth;
     private int rectHeight;
+
     private boolean itemHold = false;
     private int heldId = -1;
     public static int[] buttonId = {
@@ -25,9 +26,15 @@ public class Store {
         SpriteIDs.orcToweThreeID
     };
 
+    private int itemIn = 4;
+    private int heldID = -1;
+
+    public static int buttonID[] = {6, 7, 8, 9, 10, 11};
     public Rectangle[] buttons = new Rectangle[shopItens];
     public Rectangle health;
     public Rectangle gold;
+
+    public boolean holdsItem = false;
 
     public Store() {
         for (int i = 0; i < buttons.length; i++) {
@@ -43,7 +50,8 @@ public class Store {
 
     public void draw(Graphics g) {
         for (int i = 0; i < buttons.length; i++) {
-            g.drawImage(Screen.tileset_ground[buttonId[i]], buttons[i].x, buttons[i].y, buttons[i].width, buttons[i].height, null);
+            g.drawImage(Screen.tileset_ground[buttonID[i]], buttons[i].x, buttons[i].y, buttons[i].width, buttons[i].height, null);
+            // g.drawImage(Screen.tileset_res[0], buttons[i].x, buttons[i].y, buttons[i].width, buttons[i].height, null);
         }
 
         g.drawImage(Screen.tileset_res[1], health.x, health.y, health.width, health.height, null);
@@ -51,14 +59,14 @@ public class Store {
         g.setFont(new Font("Times New Roman", Font.BOLD, 14));
         
         if(itemHold){
-            g.drawImage(Screen.tileset_ground[heldId], Screen.mse.x - (buttons[0].width / 2), Screen.mse.y - (buttons[0].width / 2), buttons[heldId].width, buttons[heldId].height, null);
+            g.drawImage(Screen.tileset_ground[heldId], Screen.mouse.x - (buttons[0].width / 2), Screen.mouse.y - (buttons[0].width / 2), buttons[heldId].width, buttons[heldId].height, null);
         }
     }
     
     public void click (int mouseEvent) {
         if (mouseEvent == 1) {
             for (int i = 0; i < buttons.length; i++) {
-                if (buttons[i].contains(Screen.mse)){
+                if (buttons[i].contains(Screen.mouse)){
                     if (heldId == SpriteIDs.trash){
                         itemHold = false;
                     } else {
