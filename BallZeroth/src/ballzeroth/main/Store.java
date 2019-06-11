@@ -14,6 +14,16 @@ public class Store {
     private int HUDIconSize = 20;
     private int rectWidth;
     private int rectHeight;
+    private boolean itemHold = false;
+    private int heldId = -1;
+    public static int[] buttonId = {
+        SpriteIDs.humanToweOneID,
+        SpriteIDs.humanToweTwoID,
+        SpriteIDs.humanToweThreeID,
+        SpriteIDs.orcToweOneID,
+        SpriteIDs.orcToweTwoID, 
+        SpriteIDs.orcToweThreeID
+    };
 
     public Rectangle[] buttons = new Rectangle[shopItens];
     public Rectangle health;
@@ -33,10 +43,30 @@ public class Store {
 
     public void draw(Graphics g) {
         for (int i = 0; i < buttons.length; i++) {
-            g.drawImage(Screen.tileset_res[0], buttons[i].x, buttons[i].y, buttons[i].width, buttons[i].height, null);
+            g.drawImage(Screen.tileset_ground[buttonId[i]], buttons[i].x, buttons[i].y, buttons[i].width, buttons[i].height, null);
         }
 
         g.drawImage(Screen.tileset_res[1], health.x, health.y, health.width, health.height, null);
         g.drawImage(Screen.tileset_res[2], gold.x, gold.y, gold.width, gold.height, null);
+        g.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        
+        if(itemHold){
+            g.drawImage(Screen.tileset_ground[heldId], Screen.mse.x - (buttons[0].width / 2), Screen.mse.y - (buttons[0].width / 2), buttons[heldId].width, buttons[heldId].height, null);
+        }
+    }
+    
+    public void click (int mouseEvent) {
+        if (mouseEvent == 1) {
+            for (int i = 0; i < buttons.length; i++) {
+                if (buttons[i].contains(Screen.mse)){
+                    if (heldId == SpriteIDs.trash){
+                        itemHold = false;
+                    } else {
+                        heldId = buttonId[i];
+                        itemHold = true;
+                    }
+                }
+            }
+        }
     }
 }
