@@ -19,7 +19,6 @@ public class Screen extends JPanel implements Runnable {
     public static Image[] tileset_ground = new Image[100];
     public static Image[] tileset_res = new Image[100];
     public static Image[] tileset_enemies = new Image[100];
-    public static Image[] tileset_air = new Image[100];
 
     public static Map map;
     public static Store store;
@@ -55,7 +54,7 @@ public class Screen extends JPanel implements Runnable {
                 screenHeight = getHeight(); // function comes from JPanel extension
 
                 map = new Map(8, 12, sounds);
-                store = new Store();
+                store = new Store(getHealth(), getCoins());
 
                 start();
                 start = false;

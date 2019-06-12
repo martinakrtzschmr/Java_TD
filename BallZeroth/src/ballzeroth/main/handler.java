@@ -23,6 +23,7 @@ public class handler implements MouseMotionListener, MouseListener {
 
     public void mousePressed(MouseEvent e) {
         Screen.store.click(e.getButton());
+        System.out.println("pressed.");
     }
 
     public void mouseReleased(MouseEvent e) {

@@ -29,3 +29,6 @@ BallZeroth/build/classes/AEstrela/AEstrela.class
 *.class
 *.class
 *.properties
+/BallZeroth/build/
+/BallZeroth/nbproject/private/
+BallZeroth/build/classes/ballzeroth/main/Store.class
