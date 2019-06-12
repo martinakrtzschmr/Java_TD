@@ -146,7 +146,7 @@ public class Screen extends JPanel implements Runnable {
     public void run() {
         while (running) {
 
-            if (!start) {
+            if (!start && this.getHealth() > 0) {
 
                 map.physics();
                 enemySpawner();

@@ -28,7 +28,7 @@ public class Store {
         SpriteIDs.trash
     };
     public static int[] towerPrice = {
-        10, 20, 30, 40, 50, 60
+        10, 20, 30, 40, 50, 60, 0
     };
 
     public Rectangle[] buttons = new Rectangle[shopItens];
@@ -62,6 +62,11 @@ public class Store {
                 g.drawImage(Screen.tileset_ground[buttonID[i + 1]], buttons[i].x, buttons[i].y - 52, buttons[i].width, buttons[i].height, null);
             } else {
                 g.drawImage(Screen.tileset_ground[buttonID[i]], buttons[i].x, buttons[i].y - 52, buttons[i].width, buttons[i].height, null);
+            }
+            
+            if (towerPrice[i] > 0){
+                g.setColor(Color.white);
+                g.drawString("$" + towerPrice[i], buttons[i].x, buttons[i].y - 52);
             }
         }
 
