@@ -1,3 +1,4 @@
+
 package ballzeroth.main;
 
 import java.awt.*;
@@ -18,7 +19,6 @@ public class handler implements MouseMotionListener, MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-
     }
 
     public void mousePressed(MouseEvent e) {
