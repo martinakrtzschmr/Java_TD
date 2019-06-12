@@ -23,7 +23,7 @@ public class SpriteIDs {
     public static String nature = ".\\src\\ballzeroth\\resources\\naturesound.wav";
     public static String wave = ".\\src\\ballzeroth\\resources\\tamborsound.wav";
     public static String zugzug = ".\\src\\ballzeroth\\resources\\zugzug.wav";
-    
+
     public static int roadID = 0;
     public static int terrainID = 1;
     public static int humanToweOneID = 6;
@@ -32,7 +32,7 @@ public class SpriteIDs {
     public static int orcToweOneID = 12;
     public static int orcToweTwoID = 14;
     public static int orcToweThreeID = 16;
-    
+
     public static int trash = 18;
 
     public static int enemyOrcID = 0;

@@ -18,7 +18,7 @@ public class handler implements MouseMotionListener, MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-        
+
     }
 
     public void mousePressed(MouseEvent e) {
@@ -26,14 +26,14 @@ public class handler implements MouseMotionListener, MouseListener {
     }
 
     public void mouseReleased(MouseEvent e) {
-        
+
     }
 
     public void mouseEntered(MouseEvent e) {
-        
+
     }
 
     public void mouseExited(MouseEvent e) {
-        
+
     }
 }
