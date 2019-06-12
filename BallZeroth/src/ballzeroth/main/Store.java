@@ -23,7 +23,7 @@ public class Store {
         SpriteIDs.humanToweTwoID,
         SpriteIDs.humanToweThreeID,
         SpriteIDs.orcToweOneID,
-        SpriteIDs.orcToweTwoID, 
+        SpriteIDs.orcToweTwoID,
         SpriteIDs.orcToweThreeID,
         SpriteIDs.trash
     };
@@ -50,7 +50,7 @@ public class Store {
         // Sprites
         this.health = new Rectangle(Screen.map.block[0][0].x, buttons[0].y, HUDIconSize, HUDIconSize);
         this.gold = new Rectangle(Screen.map.block[0][0].x, buttons[0].y + buttons[0].height - HUDIconSize, HUDIconSize, HUDIconSize);
-        
+
         // Values
         this.healthPoints = health;
         this.goldPoints = coins;
@@ -58,13 +58,13 @@ public class Store {
 
     public void draw(Graphics g) {
         for (int i = 0; i < buttons.length; i++) {
-            if(buttons[i].contains(Screen.mouse)){
+            if (buttons[i].contains(Screen.mouse)) {
                 g.drawImage(Screen.tileset_ground[buttonID[i + 1]], buttons[i].x, buttons[i].y - 52, buttons[i].width, buttons[i].height, null);
             } else {
                 g.drawImage(Screen.tileset_ground[buttonID[i]], buttons[i].x, buttons[i].y - 52, buttons[i].width, buttons[i].height, null);
             }
-            
-            if (towerPrice[i] > 0){
+
+            if (towerPrice[i] > 0) {
                 g.setColor(Color.white);
                 g.drawString("$" + towerPrice[i], buttons[i].x, buttons[i].y - 52);
             }
@@ -73,26 +73,26 @@ public class Store {
         // Vida
         g.drawImage(Screen.tileset_res[1], health.x, health.y - (storeAlign + 15), health.width, health.height, null);
         // Moedas
-        g.drawImage(Screen.tileset_res[2], gold.x,   gold.y - (storeAlign + 15),   gold.width,   gold.height,   null);
+        g.drawImage(Screen.tileset_res[2], gold.x, gold.y - (storeAlign + 15), gold.width, gold.height, null);
         // Fonte e cor
         g.setFont(new Font("Times New Roman", Font.BOLD, 14));
         g.setColor(Color.white);
-        
+
         // Valores
         g.drawString("" + this.healthPoints, health.x + health.width + 10, health.y - storeAlign);
-        g.drawString("" + this.goldPoints,   gold.x + gold.width + 10,     gold.y - storeAlign);
-        
+        g.drawString("" + this.goldPoints, gold.x + gold.width + 10, gold.y - storeAlign);
+
         // Se selecionar uma torre, atualiza a sprite para seguir o mouse
-        if(itemHold){
+        if (itemHold) {
             g.drawImage(Screen.tileset_ground[heldId], Screen.mouse.x - ((buttons[0].width / 2) + 4), Screen.mouse.y - buttons[0].height, buttons[heldId].width, buttons[heldId].height, null);
         }
     }
-    
-    public void click (int mouseEvent) {
+
+    public void click(int mouseEvent) {
         if (mouseEvent == 1) {
             for (int i = 0; i < buttons.length; i++) {
-                if (buttons[i].contains(Screen.mouse)){ // PRECISA TESTAR
-                    if (buttonID[i] == SpriteIDs.trash){
+                if (buttons[i].contains(Screen.mouse)) { // PRECISA TESTAR
+                    if (buttonID[i] == SpriteIDs.trash) {
                         itemHold = false;
                     } else {
                         heldId = buttonID[i];
@@ -100,6 +100,20 @@ public class Store {
                     }
                 }
             }
+            if (holdsItem) {
+                if (Screen.coins >= towerPrice[heldId]) {
+                    for (int y = 0; y < Screen.map.block.length; y++) {
+                        for (int x = 0; x < Screen.map.block.length; x++) {
+                            if (Screen.map.block[y][x].contains(Screen.mouse)) {
+                                if (Screen.map.block[y][x].terrainID != SpriteIDs.roadID && Screen.map.block[y][x].terrainID == )) { //completar checagem
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+
     }
 }

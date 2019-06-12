@@ -30,8 +30,8 @@ public class Screen extends JPanel implements Runnable {
     private int spawnTime = 2400;
     private int frames = 0;
     
-    private int health = 6;
-    private int coins = 10;
+    public static int health = 6;
+    public static int coins = 10;
 
     private ArrayList<Sounds> sounds;
 
@@ -76,6 +76,14 @@ public class Screen extends JPanel implements Runnable {
         }
 
         store.draw(g); // Draw shop and update it
+        
+        if(this.getHealth() < 1){
+            g.setColor(new Color(255,0,0));
+            g.fillRect(0, 0, screenWidth, screenHeight);
+            g.setColor(new Color(255,255,255));
+            g.setFont(new Font("Verdana", Font.BOLD, 14));
+            g.drawString("PELA HORDA, ZUGZUG", 10, 10);
+        }
     }
 
     public void start() throws FileNotFoundException, IOException {
