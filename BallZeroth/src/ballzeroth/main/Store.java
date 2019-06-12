@@ -18,29 +18,29 @@ public class Store {
     private int buttonSpace = 10;
 
     private boolean itemHold = false;
-    private int heldId = -1;
-    private int realId = -1;
+    private int heldId = -1, auxID = -1;
 
-    public static int[] buttonID = {SpriteIDs.humanToweOneID,
-        SpriteIDs.humanToweTwoID,
-        SpriteIDs.humanToweThreeID,
-        SpriteIDs.orcToweOneID,
-        SpriteIDs.orcToweTwoID,
-        SpriteIDs.orcToweThreeID,
-        SpriteIDs.trash,
-        SpriteIDs.humanToweOneIDMOUSE,
-        SpriteIDs.humanToweTwoIDMOUSE,
-        SpriteIDs.humanToweThreeIDMOUSE,
-        SpriteIDs.orcToweOneIDMOUSE,
-        SpriteIDs.orcToweTwoIDMOUSE,
-        SpriteIDs.orcToweThreeIDMOUSE,
-        SpriteIDs.humanToweOneIDHUD,
-        SpriteIDs.humanToweTwoIDHUD,
-        SpriteIDs.humanToweThreeIDHUD,
-        SpriteIDs.orcToweOneIDHUD,
-        SpriteIDs.orcToweTwoIDHUD,
-        SpriteIDs.orcToweThreeIDHUD,
-        
+    public static int[] buttonID = {        // POS--ID
+        SpriteIDs.humanTowerOneID,          // 0  - 6
+        SpriteIDs.humanTowerOneIDMOUSE,     // 1  - 7
+        SpriteIDs.humanTowerOneIDHUD,       // 2  - 8
+        SpriteIDs.humanTowerTwoID,          // 3  - 9
+        SpriteIDs.humanTowerTwoIDMOUSE,     // 4  - 10
+        SpriteIDs.humanTowerTwoIDHUD,       // 5  - 11
+        SpriteIDs.humanTowerThreeID,        // 6  - 12
+        SpriteIDs.humanTowerThreeIDMOUSE,   // 7  - 13
+        SpriteIDs.humanTowerThreeIDHUD,     // 8  - 14
+        SpriteIDs.orcTowerOneID,            // 9  - 15
+        SpriteIDs.orcTowerOneIDMOUSE,       // 10 - 16
+        SpriteIDs.orcTowerOneIDHUD,         // 11 - 17
+        SpriteIDs.orcTowerTwoID,            // 12 - 18
+        SpriteIDs.orcTowerTwoIDMOUSE,       // 13 - 19
+        SpriteIDs.orcTowerTwoIDHUD,         // 14 - 20
+        SpriteIDs.orcTowerThreeID,          // 15 - 21
+        SpriteIDs.orcTowerThreeIDMOUSE,     // 16 - 22
+        SpriteIDs.orcTowerThreeIDHUD,       // 17 - 23
+        SpriteIDs.trash,                    // 18 - 24
+        SpriteIDs.trashBig                  // 19 - 25
     };
     public static int[] towerPrice = {
         10, 20, 30, 40, 50, 60, 0
@@ -72,11 +72,31 @@ public class Store {
     }
 
     public void draw(Graphics g) {
-        for (int i = 0; i < buttons.length; i++) {
+        int x = 0, y = 0;
+        
+        for (int i = 0; i < buttons.length; i++) { // 0 - 6
+            x = buttons[i].x;       // Posição X
+            y = buttons[i].y - 52;  // Posição Y
+            
+            // Verificar se botoes contem o mouse acima deles
             if (buttons[i].contains(Screen.mouse)) {
-                g.drawImage(Screen.tileset_ground[buttonID[i*3]], buttons[i].x, buttons[i].y - 52, buttons[i].width, buttons[i].height, null);
+                g.drawImage(
+                    Screen.tileset_ground[buttonID[i * 3] + 2], 
+                    x, 
+                    y, 
+                    buttons[i].width, 
+                    buttons[i].height, 
+                    null
+                );
             } else {
-                g.drawImage(Screen.tileset_ground[buttonID[i]], buttons[i].x, buttons[i].y - 52, buttons[i].width, buttons[i].height, null);
+                g.drawImage(
+                    Screen.tileset_ground[buttonID[i * 3] + 1], 
+                    x, 
+                    y, 
+                    buttons[i].width, 
+                    buttons[i].height, 
+                    null
+                );
             }
 
             if (towerPrice[i] > 0) {
@@ -98,40 +118,69 @@ public class Store {
         g.drawString("" + this.goldPoints, gold.x + gold.width + 10, gold.y - storeAlign);
 
         // Se selecionar uma torre, atualiza a sprite para seguir o mouse
+        // ############# GAMBIARRA ###############
         if (itemHold) {
-            g.drawImage(Screen.tileset_ground[heldId], Screen.mouse.x - ((buttons[0].width / 2) + 4), Screen.mouse.y - buttons[0].height, buttons[heldId].width, buttons[heldId].height, null);
+            if(heldId / 3 == 7) {
+                g.drawImage(
+                    Screen.tileset_ground[heldId], 
+                    Screen.mouse.x - ((buttons[0].width / 2) + 4), 
+                    Screen.mouse.y - buttons[0].height, 
+                    buttons[5].width,
+                    buttons[5].height,
+                    null
+                );
+            } else {
+                g.drawImage(
+                    Screen.tileset_ground[heldId], 
+                    Screen.mouse.x - ((buttons[0].width / 2) + 4), 
+                    Screen.mouse.y - buttons[0].height, 
+                    buttons[heldId / 3].width,
+                    buttons[heldId / 3].height,
+                    null
+                );
+            }
         }
     }
 
     public void click(int mouseEvent) {
-        if (mouseEvent == 1) {
+        if (mouseEvent == 1) { // Click esquerdo do mouse == 1
+            // Verifica em todos os botoes se o mouse esta dentro da area de cada um
             for (int i = 0; i < buttons.length; i++) {
-                if (buttons[i].contains(Screen.mouse)) { // PRECISA TESTAR
-                    if (buttonID[i] == SpriteIDs.trash) {
+                if (buttons[i].contains(Screen.mouse)) {
+                    
+                    // Mulitplicacao por 3 utilizada pois cada torre ocupada um
+                    // espaco de tres quadrados na SpriteSheet, ocupando 64x192
+                    if (buttonID[i * 3] == SpriteIDs.trash) {
                         itemHold = false;
                     } else {
-                        heldId = buttonID[i + 1];
-                        realId = i;
+                        heldId = buttonID[i * 3];
+                        auxID = i;
                         itemHold = true;
                     }
+                    
+                    
                 }
             }
-            if (holdsItem) {
-                if (Screen.coins >= towerPrice[realId]) {
-                    for (int y = 0; y < Screen.map.block.length; y++) {
-                        for (int x = 0; x < Screen.map.block[0].length; x++) {
-                            if (Screen.map.block[y][x].contains(Screen.mouse)) {
-                                if (Screen.map.block[y][x].terrainID != SpriteIDs.roadID && Screen.map.block[y][x].terrainID == SpriteIDs.terrainID) {
-                                    Screen.map.block[y][x].terrainID = heldId;
-                                    Screen.coins -= towerPrice[realId];
+            
+            
+            if (itemHold && goldPoints >= towerPrice[auxID]) {
+                for (int y = 0; y < Screen.map.block.length; y++) {
+                    for (int x = 0; x < Screen.map.block[0].length; x++) {
 
-                                }
+                        if (Screen.map.block[y][x].contains(Screen.mouse)) {
+                            int id = Screen.map.block[y][x].terrainID;
+
+                            if (id != SpriteIDs.roadID && id == SpriteIDs.buildID) {
+                                Screen.map.block[y][x].terrainID = heldId;
+                                this.goldPoints -= towerPrice[auxID];
                             }
+
                         }
+
                     }
                 }
             }
+            
         }
-
     }
 }

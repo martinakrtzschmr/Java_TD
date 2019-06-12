@@ -9,10 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Screen extends JPanel implements Runnable {
-
     public static int screenWidth, screenHeight;
     private boolean running = false;
     public static boolean start = true;
+    public static boolean debug = true;
 
     public Thread gameLoop = new Thread(this);
 
@@ -31,7 +31,7 @@ public class Screen extends JPanel implements Runnable {
     private int frames = 0;
 
     public static int health = 6;
-    public static int coins = 10;
+    public static int coins = 100;
 
     private ArrayList<Sounds> sounds;
 
@@ -54,7 +54,7 @@ public class Screen extends JPanel implements Runnable {
                 screenHeight = getHeight(); // function comes from JPanel extension
 
                 map = new Map(8, 12, sounds);
-                store = new Store(getHealth(), getCoins());
+                store = new Store(this.health, this.coins);
 
                 start();
                 start = false;
@@ -77,7 +77,7 @@ public class Screen extends JPanel implements Runnable {
 
         store.draw(g); // Draw shop and update it
 
-        if (this.getHealth() < 1) {
+        if (this.health < 1) {
             g.setColor(new Color(255, 0, 0));
             g.fillRect(0, 0, screenWidth, screenHeight);
             g.setColor(new Color(255, 255, 255));
@@ -154,7 +154,7 @@ public class Screen extends JPanel implements Runnable {
     public void run() {
         while (running) {
 
-            if (!start && this.getHealth() > 0) {
+            if (!start && this.health > 0) {
 
                 map.physics();
                 enemySpawner();
@@ -174,21 +174,5 @@ public class Screen extends JPanel implements Runnable {
 
             }
         }
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getCoins() {
-        return coins;
-    }
-
-    public void setCoins(int coins) {
-        this.coins = coins;
     }
 }

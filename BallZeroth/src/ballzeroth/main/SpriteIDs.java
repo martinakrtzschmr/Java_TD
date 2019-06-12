@@ -25,27 +25,29 @@ public class SpriteIDs {
     public static String zugzug = ".\\src\\ballzeroth\\resources\\zugzug.wav";
 
     public static int roadID = 0;
+    public static int buildID = 1;
     public static int terrainID = 2;
-    public static int humanToweOneID = 6;
-    public static int humanToweOneIDMOUSE = 7;
-    public static int humanToweOneIDHUD = 8;
-    public static int humanToweTwoID = 9;
-    public static int humanToweTwoIDMOUSE = 10;
-    public static int humanToweTwoIDHUD = 11;
-    public static int humanToweThreeID = 12;
-    public static int humanToweThreeIDMOUSE = 13;
-    public static int humanToweThreeIDHUD = 14;
-    public static int orcToweOneID = 15;
-    public static int orcToweOneIDMOUSE = 16;
-    public static int orcToweOneIDHUD = 17;
-    public static int orcToweTwoID = 18;
-    public static int orcToweTwoIDMOUSE = 19;
-    public static int orcToweTwoIDHUD = 20;
-    public static int orcToweThreeID = 21;
-    public static int orcToweThreeIDMOUSE = 22;
-    public static int orcToweThreeIDHUD = 23;
+    public static int humanTowerOneID = 6;
+    public static int humanTowerOneIDMOUSE = 7;
+    public static int humanTowerOneIDHUD = 8;
+    public static int humanTowerTwoID = 9;
+    public static int humanTowerTwoIDMOUSE = 10;
+    public static int humanTowerTwoIDHUD = 11;
+    public static int humanTowerThreeID = 12;
+    public static int humanTowerThreeIDMOUSE = 13;
+    public static int humanTowerThreeIDHUD = 14;
+    public static int orcTowerOneID = 15;
+    public static int orcTowerOneIDMOUSE = 16;
+    public static int orcTowerOneIDHUD = 17;
+    public static int orcTowerTwoID = 18;
+    public static int orcTowerTwoIDMOUSE = 19;
+    public static int orcTowerTwoIDHUD = 20;
+    public static int orcTowerThreeID = 21;
+    public static int orcTowerThreeIDMOUSE = 22;
+    public static int orcTowerThreeIDHUD = 23;
 
     public static int trash = 24;
+    public static int trashBig = 25;
 
     public static int enemyOrcID = 0;
     public static int enemyHumanID = 1;
