@@ -11,10 +11,11 @@ public class Block extends Rectangle {
     
     public Enemy enemy = null;
     public boolean shooting = false;
+    public int dmgTime = 1000, dmgFrame = 0;
 
     public Block(int x, int y, int width, int height, int terrainID) {
         setBounds(x, y, width, height);
-        towerRange = new Rectangle(x - (towerRangeSize / 2), y - (towerRangeSize / 2), width + towerRangeSize, height + towerRangeSize);
+        this.towerRange = new Rectangle(x - (towerRangeSize / 2), y - (towerRangeSize / 2), width + towerRangeSize, height + towerRangeSize);
         this.terrainID = terrainID;
     }
 
@@ -36,23 +37,57 @@ public class Block extends Rectangle {
     }
     
     public void physics () {
-        this.shooting = false;
-        // Melhorar ao construir uma lista que utiliza:
-        // towers.contains(this.terrainID)
-        if (this.terrainID == SpriteIDs.humanTowerOneID || 
-            this.terrainID == SpriteIDs.humanTowerTwoID || 
-            this.terrainID == SpriteIDs.humanTowerThreeID ||
-            this.terrainID == SpriteIDs.orcTowerOneID ||
-            this.terrainID == SpriteIDs.orcTowerTwoID ||
-            this.terrainID == SpriteIDs.orcTowerThreeID 
-            ) {
-            // Verifica todos os inimigos ao entrarem na zona do retangulo da torre
-            for (int i = 0; i < Screen.enemies.length; i++) {
-                Enemy aux = Screen.enemies[0]; // FIX: Test first and last enemy on range
-                if (aux.inGame && this.towerRange.intersects(aux)) {
-                    this.shooting = true;
-                    enemy = aux;
+        if (this.enemy != null && this.towerRange.intersects(enemy)) {
+            shooting = true;
+        } else {
+            shooting = false;
+        }
+        
+        if (!shooting) {
+            // Melhorar ao construir uma lista que utiliza:
+            // towers.contains(this.terrainID)
+            if (this.terrainID == SpriteIDs.humanTowerOneID || 
+                this.terrainID == SpriteIDs.humanTowerTwoID || 
+                this.terrainID == SpriteIDs.humanTowerThreeID ||
+                this.terrainID == SpriteIDs.orcTowerOneID ||
+                this.terrainID == SpriteIDs.orcTowerTwoID ||
+                this.terrainID == SpriteIDs.orcTowerThreeID 
+                ) {
+                // Verifica todos os inimigos ao entrarem na zona do retangulo da torre
+                for (int i = 0; i < Screen.enemies.length; i++) {
+                    Enemy aux = Screen.enemies[i]; // FIX: Test first and last enemy on range
+                    if (aux.inGame && this.towerRange.intersects(aux)) {
+                        this.shooting = true;
+                        this.enemy = aux;
+                    }
                 }
+            }
+        }
+        
+        if (shooting) {
+            if (dmgFrame >= dmgTime) {
+                switch (this.terrainID) {
+                    case SpriteIDs.humanTowerOneID:
+                        enemy.loseHealth(1);
+                        break;
+                    case SpriteIDs.humanTowerTwoID:
+                        enemy.loseHealth(3);
+                        break;
+                    case SpriteIDs.humanTowerThreeID:
+                        enemy.loseHealth(6);
+                        break;
+                    default:
+                        enemy.loseHealth(0);
+                        break;
+                }
+                dmgFrame = 0;
+            } else {
+                dmgFrame++;
+            }
+                
+            if (!enemy.inGame){
+                this.shooting = false;
+                this.enemy = null;
             }
         }
     }
