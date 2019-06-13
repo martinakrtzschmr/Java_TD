@@ -28,7 +28,7 @@ public class Screen extends JPanel implements Runnable {
     public static Point mouse = new Point(0, 0);
 
     public static Enemy[] enemies = new Enemy[100];
-    private int spawnTime = 500;
+    private int spawnTime = 1200;
     private int frames = 0;
     
     // Variáveis do inimigo
@@ -130,8 +130,8 @@ public class Screen extends JPanel implements Runnable {
             tileset_res[0] = new ImageIcon(SpriteIDs.buttonDIR).getImage();
             tileset_res[1] = new ImageIcon(SpriteIDs.hearthDIR).getImage();
             tileset_res[2] = new ImageIcon(SpriteIDs.coinDIR).getImage();
-            System.out.println("sprite " + SpriteIDs.orcsEnemys[3]);
-            tileset_enemies[0] = new ImageIcon(SpriteIDs.orcsEnemys[3]).getImage();
+            
+            tileset_enemies[0] = new ImageIcon(SpriteIDs.enemyDIR).getImage();
 
             for (int i = 0; i < enemies.length; i++) {
                 enemies[i] = new Enemy();
@@ -154,7 +154,7 @@ public class Screen extends JPanel implements Runnable {
                     if ((this.wave % 20) == 0)
                         this.enemyArmor++;
             
-                    enemies[j].spawn(j, 64, this.enemyArmor, SpriteIDs.orcsEnemys);
+                    enemies[j].spawn(j, 64, this.enemyArmor);
                     this.wave++;
                     break;
                 }

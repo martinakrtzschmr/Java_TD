@@ -14,15 +14,14 @@ public class Enemy extends Rectangle {
             yPos;
     public int health,
             armor;
-    public int enemySize = 64,
-            enemySpeed = 0;
+    public int enemySize = 64;
 
     public int walkSpeed = 5,
             walkFrame = 0,
             walkEnemy = 0;
 
     public int up = 0, down = 1, right = 2, left = 3, direction = right;
-    public String[] sprites;
+
     public boolean inGame = false;
     public boolean isUp = false;
     public boolean isDown = false;
@@ -33,7 +32,7 @@ public class Enemy extends Rectangle {
         // On Spawn
     }
 
-    public void spawn(int enemyID, int health, int armor, String[] images) {
+    public void spawn(int enemyID, int health, int armor) {
         for (int i = 0; i < Screen.map.block.length; i++) {
             if (Screen.map.block[i][0].terrainID == SpriteIDs.roadID) {
                 setBounds(Screen.map.block[i][0].x, Screen.map.block[i][0].y, enemySize, enemySize);
@@ -45,12 +44,19 @@ public class Enemy extends Rectangle {
         this.enemyID = enemyID;
         this.health = health;
         this.armor = armor;
-        this.sprites = images;
         inGame = true;
     }
 
     public void physics() {
         if (walkFrame >= walkSpeed) {
+            if (direction == right) {
+                x += 1;
+            } else if (direction == up) {
+                y -= 1;
+            } else if (direction == down) {
+                y += 1;
+            }
+            
             walkEnemy += 1;
 
             if (walkEnemy == Screen.map.blockSize) {
@@ -98,6 +104,7 @@ public class Enemy extends Rectangle {
                             direction = left;
                         }
                     } catch (Exception e) {
+                        
                     }
                 }
 
@@ -121,15 +128,8 @@ public class Enemy extends Rectangle {
 
     public void draw(Graphics g) {
         // preciso das imagens para inimigos
-        if (direction == right) {
-            g.drawImage(Screen.tileset_enemies[3], x, y, width, height, null);
-        } else if (direction == up) {
-            g.drawImage(Screen.tileset_enemies[2], x, y, width, height, null);
-        } else if (direction == down) {
-            g.drawImage(Screen.tileset_enemies[0], x, y, width, height, null);
-        } else if (direction == left) {
-            g.drawImage(Screen.tileset_enemies[1], x, y, width, height, null);
-        }
+        g.drawImage(Screen.tileset_enemies[0], x, y, width, height, null);
+        
 
         // Barra de vida
         g.setColor(new Color(200, 0, 0));
