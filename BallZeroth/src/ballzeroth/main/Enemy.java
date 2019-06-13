@@ -1,4 +1,3 @@
-
 package ballzeroth.main;
 
 import java.awt.*;
@@ -11,19 +10,19 @@ public class Enemy extends Rectangle {
 
     private int enemyID; // SpriteIDs.enemyHumanID -- SpriteIDs.enemyOrcID
 
-    private int xPos, 
-                yPos;
-    public int  health,
-                armor;
-    public int  enemySize = 64, 
-                enemySpeed = 0;
-    
-    public int  walkSpeed = 5, 
-                walkFrame = 0, 
-                walkEnemy = 0;
+    private int xPos,
+            yPos;
+    public int health,
+            armor;
+    public int enemySize = 64,
+            enemySpeed = 0;
+
+    public int walkSpeed = 5,
+            walkFrame = 0,
+            walkEnemy = 0;
 
     public int up = 0, down = 1, right = 2, left = 3, direction = right;
-
+    public String[] sprites;
     public boolean inGame = false;
     public boolean isUp = false;
     public boolean isDown = false;
@@ -34,7 +33,7 @@ public class Enemy extends Rectangle {
         // On Spawn
     }
 
-    public void spawn(int enemyID, int health, int armor) {
+    public void spawn(int enemyID, int health, int armor, String[] images) {
         for (int i = 0; i < Screen.map.block.length; i++) {
             if (Screen.map.block[i][0].terrainID == SpriteIDs.roadID) {
                 setBounds(Screen.map.block[i][0].x, Screen.map.block[i][0].y, enemySize, enemySize);
@@ -46,20 +45,12 @@ public class Enemy extends Rectangle {
         this.enemyID = enemyID;
         this.health = health;
         this.armor = armor;
-
+        this.sprites = images;
         inGame = true;
     }
 
     public void physics() {
         if (walkFrame >= walkSpeed) {
-            if (direction == right) {
-                x += 1;
-            } else if (direction == up) {
-                y -= 1;
-            } else if (direction == down) {
-                y += 1;
-            }
-            
             walkEnemy += 1;
 
             if (walkEnemy == Screen.map.blockSize) {
@@ -89,15 +80,12 @@ public class Enemy extends Rectangle {
                     try {
                         if (Screen.map.block[yPos - 1][xPos].terrainID == SpriteIDs.roadID) {
                             direction = up;
-
                         }
                     } catch (Exception e) {
                     }
                 }
                 if (!isLeft) {
-
                     try {
-
                         if (Screen.map.block[yPos][xPos + 1].terrainID == SpriteIDs.roadID) {
                             direction = right;
                         }
@@ -105,21 +93,17 @@ public class Enemy extends Rectangle {
                     }
                 }
                 if (!isRight) {
-
                     try {
-
                         if (Screen.map.block[yPos][xPos - 1].terrainID == SpriteIDs.roadID) {
                             direction = left;
                         }
                     } catch (Exception e) {
                     }
-
                 }
 
                 if (Screen.map.block[yPos][xPos].terrainID == SpriteIDs.endTowerMid) {
-
-                    playerHealth();
-                    enemyDied();
+                    playerHealth(this.armor);
+                    death();
                 }
 
                 isDown = false;
@@ -137,7 +121,15 @@ public class Enemy extends Rectangle {
 
     public void draw(Graphics g) {
         // preciso das imagens para inimigos
-        g.drawImage(Screen.tileset_enemies[0], x, y, width, height, null);
+        if (direction == right) {
+            g.drawImage(Screen.tileset_enemies[3], x, y, width, height, null);
+        } else if (direction == up) {
+            g.drawImage(Screen.tileset_enemies[2], x, y, width, height, null);
+        } else if (direction == down) {
+            g.drawImage(Screen.tileset_enemies[0], x, y, width, height, null);
+        } else if (direction == left) {
+            g.drawImage(Screen.tileset_enemies[1], x, y, width, height, null);
+        }
 
         // Barra de vida
         g.setColor(new Color(200, 0, 0));
@@ -145,26 +137,22 @@ public class Enemy extends Rectangle {
     }
 
     public void loseHealth(int hit) {
-        this.health -= ( hit - this.armor );
+        this.health -= (hit - this.armor);
 
         if (this.health <= 0) {
             this.death();
         }
     }
 
-    public void playerHealth() {
-        Screen.store.healthPoints -= 1;
-    }
-
-    public void enemyDied() {
-        this.inGame = false;
-        this.direction = right;
-        this.walkEnemy = 0;
+    public void playerHealth(int damagePlus) {
+        Screen.store.healthPoints -= (1 + damagePlus);
     }
 
     public void death() {
         Screen.store.goldPoints += 10;
         this.inGame = false;
+        this.direction = right;
+        this.walkEnemy = 0;
     }
 
     public void dealDamage(int hit) {

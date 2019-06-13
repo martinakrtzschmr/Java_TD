@@ -51,18 +51,22 @@ public class Block extends Rectangle {
             // Melhorar ao construir uma lista que utiliza:
             // towers.contains(this.terrainID)
             if (this.terrainID == SpriteIDs.humanTowerOneID
-                    || this.terrainID == SpriteIDs.humanTowerTwoID
-                    || this.terrainID == SpriteIDs.humanTowerThreeID
-                    || this.terrainID == SpriteIDs.orcTowerOneID
-                    || this.terrainID == SpriteIDs.orcTowerTwoID
-                    || this.terrainID == SpriteIDs.orcTowerThreeID) {
+                || this.terrainID == SpriteIDs.humanTowerTwoID
+                || this.terrainID == SpriteIDs.humanTowerThreeID
+                || this.terrainID == SpriteIDs.orcTowerOneID
+                || this.terrainID == SpriteIDs.orcTowerTwoID
+                || this.terrainID == SpriteIDs.orcTowerThreeID) {
                 // Verifica todos os inimigos ao entrarem na zona do retangulo da torre
                 for (int i = 0; i < Screen.enemies.length; i++) {
                     Enemy aux = Screen.enemies[i]; // FIX: Test first and last enemy on range
+                    
                     if (aux.inGame && this.towerRange.intersects(aux)) {
                         this.shooting = true;
-                        this.enemy = aux;
+                        //if (this.enemy != null && this.enemy.health > aux.health) {
+                            this.enemy = aux;
+                        //}
                     }
+                    
                 }
             }
         }
@@ -92,7 +96,6 @@ public class Block extends Rectangle {
                 Screen.coins += coinReward;
                 this.shooting = false;
                 this.enemy = null;
-
             }
         }
 

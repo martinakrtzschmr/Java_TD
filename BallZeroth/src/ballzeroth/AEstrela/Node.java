@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 public class Node extends Rectangle {
 
-    /**
+        /**
 	 * id do terreno ao ser renderizado
          *      0 == grama
          *      1 == pedra
