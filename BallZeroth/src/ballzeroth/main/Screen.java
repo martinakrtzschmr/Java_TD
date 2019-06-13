@@ -153,9 +153,8 @@ public class Screen extends JPanel implements Runnable {
                 if (!enemies[j].inGame) {
                     if ((this.wave % 20) == 0)
                         this.enemyArmor++;
-                    
+            
                     enemies[j].spawn(j, 64, this.enemyArmor, SpriteIDs.orcsEnemys);
-                    
                     this.wave++;
                     break;
                 }
