@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Screen extends JPanel implements Runnable {
+
     public static int screenWidth, screenHeight;
     private boolean running = false;
     public static boolean start = true;
@@ -27,7 +28,7 @@ public class Screen extends JPanel implements Runnable {
     public static Point mouse = new Point(0, 0);
 
     public static Enemy[] enemies = new Enemy[100];
-    private int spawnTime = 2400;
+    private int spawnTime = 3300;
     private int frames = 0;
 
     public static int health = 6;
@@ -154,7 +155,7 @@ public class Screen extends JPanel implements Runnable {
     public void run() {
         while (running) {
 
-            if (!start && this.health > 0) {
+            if (!start) {
 
                 map.physics();
                 enemySpawner();
