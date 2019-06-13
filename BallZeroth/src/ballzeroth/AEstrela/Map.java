@@ -42,24 +42,25 @@ public class Map
 	 */
 	public Map(int[][] map)
 	{                
-		this.width = map[0].length;
-		this.height = map.length;
-                
-		nodes = new Node[height][width];
-                
-                int width = (Screen.screenWidth / 2) - ((this.width * blockSize) / 2);
+            this.width = map[0].length;
+            this.height = map.length;
 
-		for (int x = 0; x < width; x++)
-		{
-			for (int y = 0; y < height; y++)
-			{
-				nodes[x][y] = new Node(width + (x * blockSize), // Largura do tile
-                                                       y * blockSize, // Altura do tile
-                                                       blockSize, // Tamanho do bloco a ser renderizado
-                                                       0, // Id para a imagem a ser renderizada
-                                                       map[y][x] == 0); // Define se é andável
-			}
-		}
+            nodes = new Node[height][width];
+
+            int width = (Screen.screenWidth / 2) - ((this.width * blockSize) / 2);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    nodes[x][y] = new Node(
+                        width + (x * blockSize), // Largura do tile
+                        y * blockSize, // Altura do tile
+                        blockSize, // Tamanho do bloco a ser renderizado
+                        0, // Id para a imagem a ser renderizada
+                        map[y][x] == 0); // Define se é andável
+                }
+            }
 	}
 
 	/**
@@ -75,25 +76,25 @@ public class Map
 	 */
 	public void drawMap(Graphics g, List<Node> path)
 	{
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
-				if (!nodes[x][y].isWalkable())
-{
-					g.setColor(Color.WHITE);
-				}
-				else if (path != null && path.contains(new Node(x, y, true)))
-				{
-					g.setColor(Color.YELLOW);
-				}
-				else
-				{
-					g.setColor(Color.BLACK);
-				}
-				g.fillRect(x * 32, y * 32, 32, 32);
-			}
-		}
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (!nodes[x][y].isWalkable())
+                    {
+                        g.setColor(Color.WHITE);
+                    }
+                    else if (path != null && path.contains(new Node(x, y, true)))
+                    {
+                        g.setColor(Color.YELLOW);
+                    }
+                    else
+                    {
+                        g.setColor(Color.BLACK);
+                    }
+                    g.fillRect(x * 32, y * 32, 32, 32);
+                }
+            }
 	}
 
 	/**

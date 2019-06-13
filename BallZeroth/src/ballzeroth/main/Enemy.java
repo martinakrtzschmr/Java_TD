@@ -11,9 +11,16 @@ public class Enemy extends Rectangle {
 
     private int enemyID; // SpriteIDs.enemyHumanID -- SpriteIDs.enemyOrcID
 
-    private int xPos, yPos;
-    public int health, enemySize = 64, enemySpeed = 0;
-    public int walkSpeed = 20, walkFrame = 0, walkEnemy = 0;
+    private int xPos, 
+                yPos;
+    public int  health,
+                armor;
+    public int  enemySize = 64, 
+                enemySpeed = 0;
+    
+    public int  walkSpeed = 5, 
+                walkFrame = 0, 
+                walkEnemy = 0;
 
     public int up = 0, down = 1, right = 2, left = 3, direction = right;
 
@@ -27,7 +34,7 @@ public class Enemy extends Rectangle {
         // On Spawn
     }
 
-    public void spawn(int enemyID) {
+    public void spawn(int enemyID, int health, int armor) {
         for (int i = 0; i < Screen.map.block.length; i++) {
             if (Screen.map.block[i][0].terrainID == SpriteIDs.roadID) {
                 setBounds(Screen.map.block[i][0].x, Screen.map.block[i][0].y, enemySize, enemySize);
@@ -37,7 +44,8 @@ public class Enemy extends Rectangle {
         }
 
         this.enemyID = enemyID;
-        this.health = this.enemySize;
+        this.health = health;
+        this.armor = armor;
 
         inGame = true;
     }
@@ -48,11 +56,10 @@ public class Enemy extends Rectangle {
                 x += 1;
             } else if (direction == up) {
                 y -= 1;
-
             } else if (direction == down) {
                 y += 1;
-
             }
+            
             walkEnemy += 1;
 
             if (walkEnemy == Screen.map.blockSize) {
@@ -135,11 +142,10 @@ public class Enemy extends Rectangle {
         // Barra de vida
         g.setColor(new Color(200, 0, 0));
         g.fillRect(x, y - 10, this.health, 6);
-
     }
 
     public void loseHealth(int hit) {
-        this.health -= hit;
+        this.health -= ( hit - this.armor );
 
         if (this.health <= 0) {
             this.death();
@@ -152,12 +158,13 @@ public class Enemy extends Rectangle {
 
     public void enemyDied() {
         this.inGame = false;
+        this.direction = right;
+        this.walkEnemy = 0;
     }
 
     public void death() {
         Screen.store.goldPoints += 10;
         this.inGame = false;
-
     }
 
     public void dealDamage(int hit) {

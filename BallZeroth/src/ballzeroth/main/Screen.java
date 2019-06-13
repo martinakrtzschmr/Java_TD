@@ -27,8 +27,8 @@ public class Screen extends JPanel implements Runnable {
     private ImageIcon image;
     public static Point mouse = new Point(0, 0);
 
-    public static Enemy[] enemies = new Enemy[6];
-    private int spawnTime = 3300;
+    public static Enemy[] enemies = new Enemy[100];
+    private int spawnTime = 2000;
     private int frames = 0;
 
     public static int health = 6;
@@ -137,14 +137,15 @@ public class Screen extends JPanel implements Runnable {
     }
 
     public void enemySpawner() {
-
+        // Tempo para spawnar um inimigo.
         if (frames >= spawnTime) {
             for (int i = 0; i < enemies.length; i++) {
                 if (!enemies[i].inGame) {
-                    enemies[i].spawn(i);
+                    enemies[i].spawn(i, 64, 1);
                     break;
                 }
             }
+            
             this.sounds.get(3).onceTime();
 
             frames = 0;
