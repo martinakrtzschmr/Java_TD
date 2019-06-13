@@ -9,8 +9,13 @@ import java.awt.*;
 public class Enemy extends Rectangle {
 
     private int xPos, yPos;
+    
+    private int enemyID; // SpriteIDs.enemyHumanID -- SpriteIDs.enemyOrcID
     private int enemySize = 64;
-    private int enemyID = SpriteIDs.enemyOrcID;
+    private int enemySpeed = 0;
+    private int up = 0, down = 1, right = 2, left = 3;
+    
+    private int direction = right;
 
     public int walkSpeed = 50, walkFrame = 0;
 

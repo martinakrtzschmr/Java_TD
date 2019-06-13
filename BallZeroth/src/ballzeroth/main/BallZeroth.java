@@ -49,7 +49,6 @@ public class BallZeroth extends JFrame {
     }
 
     public static void main(String[] args) throws MalformedURLException {
-
         BallZeroth game = new BallZeroth();
     }
 }
