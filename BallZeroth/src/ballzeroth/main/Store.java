@@ -39,8 +39,8 @@ public class Store {
         SpriteIDs.orcTowerThreeID,          // 15 - 21
         SpriteIDs.orcTowerThreeIDMOUSE,     // 16 - 22
         SpriteIDs.orcTowerThreeIDHUD,       // 17 - 23
-        SpriteIDs.trash,                    // 18 - 24
-        SpriteIDs.trashBig                  // 19 - 25
+        SpriteIDs.trash,                    // 18 - 28
+        SpriteIDs.trashBig                  // 19 - 29
     };
     public static int[] towerPrice = {
         10, 20, 30, 40, 50, 60, 0

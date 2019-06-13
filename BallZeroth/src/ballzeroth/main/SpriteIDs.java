@@ -45,9 +45,13 @@ public class SpriteIDs {
     public static final int orcTowerThreeID = 21;
     public static final int orcTowerThreeIDMOUSE = 22;
     public static final int orcTowerThreeIDHUD = 23;
+    
+    public static final int endTowerUp = 24;
+    public static final int endTowerMid = 25;
+    public static final int endTowerDown = 26;
 
-    public static final int trash = 24;
-    public static final int trashBig = 25;
+    public static final int trash = 28;
+    public static final int trashBig = 29;
 
     public static final int enemyOrcID = 0;
     public static final int enemyHumanID = 1;
