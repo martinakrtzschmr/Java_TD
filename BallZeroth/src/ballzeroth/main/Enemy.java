@@ -1,3 +1,4 @@
+
 package ballzeroth.main;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ public class Enemy extends Rectangle {
 
     private int xPos, yPos;
     public int health, enemySize = 64, enemySpeed = 0;
-    public int walkSpeed = 1, walkFrame = 0, walkEnemy = 0;
+    public int walkSpeed = 20, walkFrame = 0, walkEnemy = 0;
 
     public int up = 0, down = 1, right = 2, left = 3, direction = right;
 
@@ -150,11 +151,12 @@ public class Enemy extends Rectangle {
     }
 
     public void enemyDied() {
-        inGame = false;
+        this.inGame = false;
     }
 
     public void death() {
         Screen.store.goldPoints += 10;
+        this.inGame = false;
 
     }
 

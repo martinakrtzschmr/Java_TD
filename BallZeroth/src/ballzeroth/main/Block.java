@@ -1,8 +1,6 @@
 package ballzeroth.main;
 
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class Block extends Rectangle {
 
@@ -26,15 +24,15 @@ public class Block extends Rectangle {
     public void draw(Graphics g) {
         g.drawImage(Screen.tileset_ground[terrainID], x, y, width, height, null);
 
-        if (this.terrainID == SpriteIDs.humanTowerOneID) {
-            g.drawRect(towerRange.x, towerRange.y, towerRange.width, towerRange.height);
-        }
+      //  if (this.terrainID == SpriteIDs.humanTowerOneID) {
+      //      g.drawRect(towerRange.x, towerRange.y, towerRange.width, towerRange.height);
+      //  }
     }
 
     public void attack(Graphics g) {
-        if (Screen.debug && this.terrainID == SpriteIDs.humanTowerOneID) {
-            g.drawRect(towerRange.x, towerRange.y, towerRange.width, towerRange.height);
-        }
+       // if (Screen.debug && this.terrainID == SpriteIDs.humanTowerOneID) {
+       //     g.drawRect(towerRange.x, towerRange.y, towerRange.width, towerRange.height);
+       // }
 
         if (this.shooting) {
             g.setColor(new Color(0, 0, 255));
