@@ -78,7 +78,7 @@ public class Screen extends JPanel implements Runnable {
 
         store.draw(g); // Draw shop and update it
 
-        if (this.health < 1) {
+        if (Screen.store.healthPoints < 1) {
             g.setColor(new Color(255, 0, 0));
             g.fillRect(0, 0, screenWidth, screenHeight);
             g.setColor(new Color(255, 255, 255));

@@ -12,7 +12,7 @@ public class Enemy extends Rectangle {
 
     private int xPos, yPos;
     public int health, enemySize = 64, enemySpeed = 0;
-    public int walkSpeed = 30, walkFrame = 0, walkEnemy = 0;
+    public int walkSpeed = 1, walkFrame = 0, walkEnemy = 0;
 
     public int up = 0, down = 1, right = 2, left = 3, direction = right;
 
@@ -24,6 +24,14 @@ public class Enemy extends Rectangle {
 
     public Enemy() {
         // On Spawn
+    }
+
+    public void lostHealth() {
+        Screen.store.healthPoints -= 1;
+    }
+
+    public void enemyDied() {
+        inGame = false;
     }
 
     public void spawn(int enemyID) {
@@ -105,6 +113,12 @@ public class Enemy extends Rectangle {
                         }
                     } catch (Exception e) {
                     }
+
+                }
+                
+                if(Screen.map.block[yPos][xPos].terrainID == SpriteIDs.endTowerMid){
+                    enemyDied();
+                    lostHealth();
                 }
 
                 isDown = false;
