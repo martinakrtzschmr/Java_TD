@@ -118,8 +118,8 @@ public class Enemy extends Rectangle {
 
                 if (Screen.map.block[yPos][xPos].terrainID == SpriteIDs.endTowerMid) {
 
-                    playerHealth();
-                    enemyDied();
+                    playerHealth(this.armor);
+                    death();
                 }
 
                 isDown = false;
@@ -152,19 +152,15 @@ public class Enemy extends Rectangle {
         }
     }
 
-    public void playerHealth() {
-        Screen.store.healthPoints -= 1;
-    }
-
-    public void enemyDied() {
-        this.inGame = false;
-        this.direction = right;
-        this.walkEnemy = 0;
+    public void playerHealth(int damagePlus) {
+        Screen.store.healthPoints -= (1 + damagePlus);
     }
 
     public void death() {
         Screen.store.goldPoints += 10;
         this.inGame = false;
+        this.direction = right;
+        this.walkEnemy = 0;
     }
 
     public void dealDamage(int hit) {

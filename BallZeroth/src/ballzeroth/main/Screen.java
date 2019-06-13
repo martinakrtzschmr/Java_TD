@@ -28,10 +28,15 @@ public class Screen extends JPanel implements Runnable {
     public static Point mouse = new Point(0, 0);
 
     public static Enemy[] enemies = new Enemy[100];
-    private int spawnTime = 2000;
+    private int spawnTime = 500;
     private int frames = 0;
+    
+    // Variáveis do inimigo
+    public static int enemyArmor = 1;
+    public static int wave = 1;
 
-    public static int health = 6;
+    // Variáveis para o player
+    public static int health = 20;
     public static int coins = 100;
     public static int kill = 0, killToWin = 0, level = 1;
 
@@ -84,7 +89,9 @@ public class Screen extends JPanel implements Runnable {
             g.fillRect(0, 0, screenWidth, screenHeight);
             g.setColor(new Color(255, 255, 255));
             g.setFont(new Font("Times New Roman", Font.BOLD, 14));
-            g.drawString("PELA HORDA, ZUGZUG", screenWidth/2, screenHeight/2);
+            g.drawString("PELA HOOOOOORDA!!!!!!", (screenWidth/2) - 80, screenHeight/2);
+            g.drawString("ZUGZUG", (screenWidth/2) - 80, (screenHeight/2) + 20);
+            
         }
     }
 
@@ -139,9 +146,17 @@ public class Screen extends JPanel implements Runnable {
     public void enemySpawner() {
         // Tempo para spawnar um inimigo.
         if (frames >= spawnTime) {
-            for (int i = 0; i < enemies.length; i++) {
-                if (!enemies[i].inGame) {
-                    enemies[i].spawn(i, 64, 1);
+            // Waves
+            System.out.println("Wave: " + (this.wave / 20));
+            System.out.println("Armor: " + this.enemyArmor);
+            for (int j = 0; j < enemies.length; j++) {
+                if (!enemies[j].inGame) {
+                    if ((this.wave % 20) == 0)
+                        this.enemyArmor++;
+                    
+                    enemies[j].spawn(j, 64, this.enemyArmor);
+                    
+                    this.wave++;
                     break;
                 }
             }
@@ -155,11 +170,15 @@ public class Screen extends JPanel implements Runnable {
     }
 
     public void run() {
+        // Game Loop
         while (running) {
-
             if (!start) {
-
+                // Verifica a classe physics de cada elemento dentro do mapa.
+                // Elementos: 
+                //    Blocks - Se o inimigo estiver em range, ataca.
                 map.physics();
+                
+                // Constroi e renderiza os inimigos
                 enemySpawner();
 
                 for (int i = 0; i < enemies.length; i++) {
@@ -169,6 +188,7 @@ public class Screen extends JPanel implements Runnable {
                 }
             }
 
+            // Atualiza todas as sprites
             repaint();
 
             try {

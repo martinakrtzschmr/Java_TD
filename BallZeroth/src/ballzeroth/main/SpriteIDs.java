@@ -23,7 +23,7 @@ public class SpriteIDs {
     public static final String nature = ".\\src\\ballzeroth\\resources\\naturesound.wav";
     public static final String wave = ".\\src\\ballzeroth\\resources\\tamborsound.wav";
     public static final String zugzug = ".\\src\\ballzeroth\\resources\\zugzug.wav";
-
+    
     public static final int roadID = 0;
     public static final int buildID = 1;
     public static final int terrainID = 2;
