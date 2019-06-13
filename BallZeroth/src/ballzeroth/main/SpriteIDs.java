@@ -55,4 +55,6 @@ public class SpriteIDs {
 
     public static final int enemyOrcID = 0;
     public static final int enemyHumanID = 1;
+    
+    
 }

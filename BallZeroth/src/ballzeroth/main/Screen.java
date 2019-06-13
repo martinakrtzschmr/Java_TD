@@ -27,12 +27,13 @@ public class Screen extends JPanel implements Runnable {
     private ImageIcon image;
     public static Point mouse = new Point(0, 0);
 
-    public static Enemy[] enemies = new Enemy[100];
+    public static Enemy[] enemies = new Enemy[6];
     private int spawnTime = 3300;
     private int frames = 0;
 
     public static int health = 6;
     public static int coins = 100;
+    public static int kill = 0, killToWin = 0, level = 1;
 
     private ArrayList<Sounds> sounds;
 
@@ -82,8 +83,8 @@ public class Screen extends JPanel implements Runnable {
             g.setColor(new Color(255, 0, 0));
             g.fillRect(0, 0, screenWidth, screenHeight);
             g.setColor(new Color(255, 255, 255));
-            g.setFont(new Font("Verdana", Font.BOLD, 14));
-            g.drawString("PELA HORDA, ZUGZUG", 10, 10);
+            g.setFont(new Font("Times New Roman", Font.BOLD, 14));
+            g.drawString("PELA HORDA, ZUGZUG", screenWidth/2, screenHeight/2);
         }
     }
 

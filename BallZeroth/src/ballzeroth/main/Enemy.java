@@ -26,14 +26,6 @@ public class Enemy extends Rectangle {
         // On Spawn
     }
 
-    public void lostHealth() {
-        Screen.store.healthPoints -= 1;
-    }
-
-    public void enemyDied() {
-        inGame = false;
-    }
-
     public void spawn(int enemyID) {
         for (int i = 0; i < Screen.map.block.length; i++) {
             if (Screen.map.block[i][0].terrainID == SpriteIDs.roadID) {
@@ -115,10 +107,11 @@ public class Enemy extends Rectangle {
                     }
 
                 }
-                
-                if(Screen.map.block[yPos][xPos].terrainID == SpriteIDs.endTowerMid){
+
+                if (Screen.map.block[yPos][xPos].terrainID == SpriteIDs.endTowerMid) {
+
+                    playerHealth();
                     enemyDied();
-                    lostHealth();
                 }
 
                 isDown = false;
@@ -141,6 +134,7 @@ public class Enemy extends Rectangle {
         // Barra de vida
         g.setColor(new Color(200, 0, 0));
         g.fillRect(x, y - 10, this.health, 6);
+
     }
 
     public void loseHealth(int hit) {
@@ -151,8 +145,17 @@ public class Enemy extends Rectangle {
         }
     }
 
+    public void playerHealth() {
+        Screen.store.healthPoints -= 1;
+    }
+
+    public void enemyDied() {
+        inGame = false;
+    }
+
     public void death() {
-        this.inGame = false;
+        Screen.store.goldPoints += 10;
+
     }
 
     public void dealDamage(int hit) {
