@@ -32,12 +32,12 @@ public class Screen extends JPanel implements Runnable {
     private int frames = 0;
     
     // Variáveis do inimigo
-    public static int enemyArmor = 1;
+    public static int enemyArmor = 100;
     public static int wave = 1;
 
     // Variáveis para o player
     public static int health = 20;
-    public static int coins = 100;
+    public static int coins = 10000;
     public static int kill = 0, killToWin = 0, level = 1;
 
     private ArrayList<Sounds> sounds;
@@ -60,7 +60,7 @@ public class Screen extends JPanel implements Runnable {
                 screenWidth = getWidth(); // function comes from JPanel extension
                 screenHeight = getHeight(); // function comes from JPanel extension
 
-                map = new Map(8, 12, sounds);
+                map = new Map(10, 12, sounds);
                 store = new Store(this.health, this.coins);
 
                 start();
@@ -131,7 +131,7 @@ public class Screen extends JPanel implements Runnable {
             tileset_res[1] = new ImageIcon(SpriteIDs.hearthDIR).getImage();
             tileset_res[2] = new ImageIcon(SpriteIDs.coinDIR).getImage();
             
-            tileset_enemies[0] = new ImageIcon(SpriteIDs.enemyDIR).getImage();
+            tileset_enemies[0] = new ImageIcon(SpriteIDs.enemyOrc).getImage();
 
             for (int i = 0; i < enemies.length; i++) {
                 enemies[i] = new Enemy();

@@ -15,7 +15,7 @@ public class Store {
     private int HUDIconSize = 20;
     private int storeWidth;
     private int storeHeight;
-    private int buttonSpace = 10;
+    private int buttonSpace = 25;
 
     private boolean itemHold = false;
     private int heldId = -1, auxID = -1;
@@ -43,7 +43,7 @@ public class Store {
         SpriteIDs.trashBig                  // 19 - 29
     };
     public static int[] towerPrice = {
-        10, 20, 30, 40, 50, 60, 0
+        15, 25, 35, 600, 650, 700, 0
     };
 
     public Rectangle[] buttons = new Rectangle[shopItens];
@@ -59,7 +59,7 @@ public class Store {
             storeWidth = (Screen.screenWidth / 2) - (shopItens * (buttonSize) / 2);
             storeHeight = Screen.map.block[Screen.map.worldHeight - 1][0].y + (buttonSize * 2);
 
-            buttons[i] = new Rectangle(storeWidth + ((buttonSize + buttonSpace) * i), storeHeight, buttonSize, buttonSize);
+            buttons[i] = new Rectangle(storeWidth + ((buttonSize + buttonSpace) * i), storeHeight + 10, buttonSize, buttonSize);
         }
 
         // Sprites
@@ -101,7 +101,28 @@ public class Store {
 
             if (towerPrice[i] > 0) {
                 g.setColor(Color.white);
-                g.drawString("$" + towerPrice[i], buttons[i].x, buttons[i].y - 52);
+                switch (i) {
+                    case 0:
+                        g.drawString("$" + towerPrice[i] + " - Atk. 6", buttons[i].x, buttons[i].y - 52);
+                        break;
+                    case 1:
+                        g.drawString("$" + towerPrice[i] + " - Atk. 12", buttons[i].x, buttons[i].y - 52);
+                        break;
+                    case 2:
+                        g.drawString("$" + towerPrice[i] + " - Atk. 25", buttons[i].x, buttons[i].y - 52);
+                        break;
+                    case 3:
+                        g.drawString("$" + towerPrice[i] + " - Atk. 100", buttons[i].x, buttons[i].y - 52);
+                        break;
+                    case 4:
+                        g.drawString("$" + towerPrice[i] + " - Atk. 125", buttons[i].x, buttons[i].y - 52);
+                        break;
+                    case 5:
+                        g.drawString("$" + towerPrice[i] + " - Atk. 150", buttons[i].x, buttons[i].y - 52);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

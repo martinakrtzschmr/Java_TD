@@ -14,7 +14,7 @@ FELIPE ANDREY
 public class BallZeroth extends JFrame {
 
     public static String title = "BallZeroth!";
-    public static Dimension size = new Dimension(900, 650);
+    public static Dimension size = new Dimension(1800, 960);
 
     public void init() throws MalformedURLException {
 

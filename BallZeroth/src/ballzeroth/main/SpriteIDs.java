@@ -16,7 +16,8 @@ public class SpriteIDs {
     public static final String coinDIR = ".\\src\\ballzeroth\\resources\\Coin.png";
 
     //Building Enemies
-    public static final String enemyDIR = ".\\src\\ballzeroth\\resources\\Orc_Bot.png";
+    public static final String enemyOrc = ".\\src\\ballzeroth\\resources\\Orc_Bot.png";
+    public static final String enemyHuman = ".\\src\\ballzeroth\\resources\\Human_Bot.png";
 
     //sounds and songs
     public static final String mainMusic = ".\\src\\ballzeroth\\resources\\battlesong.wav";

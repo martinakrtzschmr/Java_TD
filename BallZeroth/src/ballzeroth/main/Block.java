@@ -75,13 +75,22 @@ public class Block extends Rectangle {
             if (dmgFrame >= dmgTime) {
                 switch (this.terrainID) {
                     case SpriteIDs.humanTowerOneID:
-                        enemy.loseHealth(5);
+                        enemy.loseHealth(6);
                         break;
                     case SpriteIDs.humanTowerTwoID:
-                        enemy.loseHealth(10);
+                        enemy.loseHealth(12);
                         break;
                     case SpriteIDs.humanTowerThreeID:
-                        enemy.loseHealth(20);
+                        enemy.loseHealth(25);
+                        break;
+                    case SpriteIDs.orcTowerOneID:
+                        enemy.loseHealth(100);
+                        break;
+                    case SpriteIDs.orcTowerTwoID:
+                        enemy.loseHealth(125);
+                        break;
+                    case SpriteIDs.orcTowerThreeID:
+                        enemy.loseHealth(150);
                         break;
                     default:
                         enemy.loseHealth(0);

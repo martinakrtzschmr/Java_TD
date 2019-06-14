@@ -11,24 +11,13 @@ import java.util.List;
  */
 public class Map
 {    
-	/**
-	 * O tamanho de cada quadrado utilizado na rendereização
-	 */
+	// O tamanho de cada quadrado utilizado na rendereização
         public final int blockSize = 64; // Pixels de cada quadrado
-    
-	/**
-	 * A largura do mapa, em colunas.
-	 */
+    	// A largura do mapa, em colunas.
 	private int width;
-
-	/**
-	 * A altura do mapa, em linhas.
-	 */
+	// A altura do mapa, em linhas.
 	private int height;
-
-	/**
-	 * Matriz de No utilizada para o algoritmo de Pathfinding.
-	 */
+	// Matriz de No utilizada para o algoritmo de Pathfinding.
 	private Node[][] nodes;
 
 	/**
@@ -54,11 +43,11 @@ public class Map
                 for (int y = 0; y < height; y++)
                 {
                     nodes[x][y] = new Node(
-                        width + (x * blockSize), // Largura do tile
-                        y * blockSize, // Altura do tile
-                        blockSize, // Tamanho do bloco a ser renderizado
-                        0, // Id para a imagem a ser renderizada
-                        map[y][x] == 0); // Define se é andável
+                        width + (x * blockSize),    // Largura do tile
+                        y * blockSize,              // Altura do tile
+                        blockSize,                  // Tamanho do bloco a ser renderizado
+                        0,                          // Id para a imagem a ser renderizada
+                        map[y][x] == 0);            // Define se é andável
                 }
             }
 	}
